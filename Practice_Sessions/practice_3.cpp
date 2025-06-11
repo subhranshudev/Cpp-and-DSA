@@ -47,27 +47,30 @@ int main() {
     }
 */
 
-/*    // 4. WAP to print all the prime numbers from 2 to N
+   // 4. WAP to print all the prime numbers from 2 to N
     int N;
     cout<< "Enter N: ";
     cin>> N;
+    bool isPrime = true;
     for (int i= 2; i <=N; i++)
     {
-        if (i == 2)
-        {
-            cout<< i <<" ";
-        }
-        
-        for (int j = 2; j <=sqrt(N); j++)
-        {
-           if (i%j != 0)
-           {
-                cout<< i <<" ";
-           }
-           
-        }  
+       for (int j = 2; j <=sqrt(i); j++)
+       {
+         if (i % j == 0)
+         {
+            isPrime = false;
+         } else {
+            isPrime = true;
+         }
+       }
+
+       if (isPrime)
+       {
+        cout<< i<< " ";
+       }
+       
     }
-*/
+
 
 /*    // 5. Print a Fibonacci Series of N numbers 
     int N;
@@ -85,9 +88,9 @@ int main() {
 */ 
 
 // Fizz Buzz 
-int n;
-cout<< "Enter n: ";
-cin>>n;
+// int n;
+// cout<< "Enter n: ";
+// cin>>n;
 
 //  for (int i = 1; i <=n; i++) {
 //     if (i%3 == 0 && i%5 == 0)
@@ -107,7 +110,7 @@ cin>>n;
 // }
 
  // optimised approach-->
- int Fizz = 0, Buzz = 0;
+/* int Fizz = 0, Buzz = 0;
  for (int i = 1; i <= n; i++)
  {
     Fizz++;
@@ -131,7 +134,7 @@ cin>>n;
     
     
  }
- 
+*/ 
 
 
     
