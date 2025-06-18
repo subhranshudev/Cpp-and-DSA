@@ -28,10 +28,34 @@ void swapNum(int &firstVal, int &lastVal){
         lastVal = temp;
 }
 
+int binarySearch(int *arr, int n, int key) {
+    int start = 0, end = n-1;
+    
+    while (start <= end)
+    {
+        int mid = (start+end)/2;
+
+        if (arr[mid] == key)
+        {
+           return mid;
+        } else if (arr[mid] < key)
+        {
+            start = mid + 1;
+        } else {
+            end = mid - 1;
+        }  
+    }
+   return -1;
+   cout<< "done";
+}
+
+
+
+
 
 int main() {
-/*
-    int arr[5];
+    // PART-1-->
+/*  int arr[5];
     int n = sizeof(arr) / sizeof(int);
 
     //input
@@ -62,8 +86,7 @@ int main() {
     }
 */
 
-/*
-    // Find largest and smallest in array:
+/*  // Find largest and smallest in array:
     int arr[] = {5, 4, 3, 9, 2};
     int n = sizeof(arr) / sizeof(int); 
     int max = arr[0] ;
@@ -84,8 +107,7 @@ int main() {
     cout<< "Smallest value = "<< min;
 */
 
-/*
-    //Linear Search
+/*  //Linear Search
     int arr[] = {2, 4, 6, 8, 10, 12, 14, 16};
     int n = sizeof(arr) / sizeof(int);
     cout<< linearSearch(arr, n, 20) ;
@@ -109,8 +131,7 @@ int main() {
     printArr(arr, n);
 */
 
-
-    // without extra space
+/*  // without extra space
       int arr[] = {5, 4, 3, 9, 2};
       int n = sizeof(arr) / sizeof(int);
       int start = 0;
@@ -123,6 +144,41 @@ int main() {
         end--;
       }
       printArr(arr, n);
+*/
+
+/*    // Binary Search
+    int arr[] = {2, 4, 6, 8, 10, 12, 14, 16};
+    int n = sizeof(arr)/ sizeof(int);
+    cout<< binarySearch(arr, n, 13);
+*/
+
+    // Pointer Arithematic
+   /*  int a = 10;
+    int *aptr = &a;
+    cout<< aptr<< endl;
+    aptr++;
+    cout<< aptr<< endl;
+    aptr--;
+    cout<< aptr<< endl;  */
+
+   /* int b = 20;
+    int *bptr = &b;
+    cout<< bptr<< endl;
+    bptr = bptr + 3;
+    cout<< bptr<< endl;
+    bptr = bptr - 3;
+    cout<< bptr<< endl;  */
+
+    int c = 30;
+    int *ptr1 = &c;
+    int *ptr2 = ptr1 + 3;
+    cout<< ptr1<< endl;
+    cout<< ptr2<< endl;
+    cout<< (ptr2 - ptr1)<< endl;
+
+    cout<< (ptr2 > ptr1)<< endl;
+    cout<< (ptr2 < ptr1)<< endl;
+    cout<< (ptr1 == &c)<< endl;
 
 
 
