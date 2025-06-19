@@ -49,9 +49,76 @@ int binarySearch(int *arr, int n, int key) {
    cout<< "done";
 }
 
+void printSubarray(int *arr, int n){
+    for (int start = 0; start < n; start++)
+    {
+        for (int end = start; end < n; end++)
+        {
+            // cout<< "("<< start<< ","<< end<< ")"<< " ";
 
+            for (int i = start; i <=end; i++)
+            {
+                cout<< arr[i];
+            }    
+            cout<< ",";
 
+        }
+        cout<< "\n";
+        
+    }
+}
 
+void subArraySum1(int *arr, int n){
+    int maxSum = INT32_MIN;
+    for (int start = 0; start <n; start++)
+    {
+        for (int end = start; end < n; end++)
+        {
+            int currSum = 0;
+            for (int i = start; i <= end; i++)
+            {
+                currSum = currSum + arr[i];
+            }
+            //cout<< currSum<< ",";
+            maxSum = max(currSum, maxSum);
+        }
+        // cout<<endl;
+    }
+    cout<< "Maximum subarray sum = "<< maxSum<< endl;
+}
+
+void subArraySum2(int *arr, int n){
+    int maxSum = INT32_MIN;
+    for (int start = 0; start <n; start++)
+    {
+        int currSum = 0;
+        for (int end = start; end < n; end++)
+        {
+            currSum = currSum + arr[end];
+            maxSum = max(currSum, maxSum);
+        }
+    }
+    cout<< "Maximum subarray sum = "<< maxSum<< endl;
+}
+
+//Kadane's Algorithm
+void subArraySum3(int *arr, int n){
+    int currSum = 0;
+    int maxSum = INT32_MIN;
+    for (int i = 0; i < n; i++)
+    {
+        currSum = currSum + arr[i];
+        maxSum = max(currSum, maxSum);
+        if (currSum < 0)
+        {
+            currSum = 0;
+        }
+        
+    }
+    
+    cout<< "The maximum Subarray sum = "<< maxSum<< endl;
+    
+}
 
 int main() {
     // PART-1-->
@@ -152,22 +219,22 @@ int main() {
     cout<< binarySearch(arr, n, 13);
 */
 
-    // Pointer Arithematic
-   /*  int a = 10;
+/*   // Pointer Arithematic
+     int a = 10;
     int *aptr = &a;
     cout<< aptr<< endl;
     aptr++;
     cout<< aptr<< endl;
     aptr--;
-    cout<< aptr<< endl;  */
+    cout<< aptr<< endl;  
 
-   /* int b = 20;
+    int b = 20;
     int *bptr = &b;
     cout<< bptr<< endl;
     bptr = bptr + 3;
     cout<< bptr<< endl;
     bptr = bptr - 3;
-    cout<< bptr<< endl;  */
+    cout<< bptr<< endl;  
 
     int c = 30;
     int *ptr1 = &c;
@@ -179,8 +246,24 @@ int main() {
     cout<< (ptr2 > ptr1)<< endl;
     cout<< (ptr2 < ptr1)<< endl;
     cout<< (ptr1 == &c)<< endl;
+*/
 
+/*  // Print Subarrays
+    int arr[] = {1, 2, 3, 4, 5};
+    int n = sizeof(arr) / sizeof(int);
+    printSubarray(arr, n);
+*/
 
+   // Max subarray sum
+    int arr[] = {2, -3, 6, -5, 4, 2};
+    int n = sizeof(arr)/sizeof(int);
+    subArraySum1(arr, n);
+    subArraySum2(arr, n);
+    // Kadane's algorithm --> It is an algorithm which calculate the maximum subarray sum without calculating all the subarray sum
+    subArraySum3(arr, n);
+
+   
+    
 
 
     return 0;
