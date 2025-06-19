@@ -120,6 +120,32 @@ void subArraySum3(int *arr, int n){
     
 }
 
+int maxProfit(int *prices, int n){
+    int bestBuy[100000]; // we cant do dynamic array creation in a function like bestBuy[n]
+    bestBuy[0] = INT32_MAX;
+    cout<< bestBuy[0]<<",";
+    for (int i = 1; i < n; i++)
+    {
+        bestBuy[i] = min(bestBuy[i-1], prices[i-1]);
+        cout<<bestBuy[i]<<",";
+    }
+    cout<< endl;
+ 
+    int maxProfit = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int profit = prices[i] - bestBuy[i];
+        // if (profit > maxProfit) {
+        //     maxProfit = profit;
+        // }  or
+        maxProfit = max(profit, maxProfit);
+    }
+    // Time complexity --> O(n + n) = O(2n) = O(n)
+    cout<< "Maximum Profit = "<< maxProfit<< endl;
+    
+}
+
+
 int main() {
     // PART-1-->
 /*  int arr[5];
@@ -254,13 +280,19 @@ int main() {
     printSubarray(arr, n);
 */
 
-   // Max subarray sum
+/*  // Max subarray sum
     int arr[] = {2, -3, 6, -5, 4, 2};
     int n = sizeof(arr)/sizeof(int);
     subArraySum1(arr, n);
     subArraySum2(arr, n);
     // Kadane's algorithm --> It is an algorithm which calculate the maximum subarray sum without calculating all the subarray sum
     subArraySum3(arr, n);
+*/
+
+    // Buy and Sell Stocks
+    int prices[] = {7, 1, 5, 3, 6, 4};
+    int n = sizeof(prices)/ sizeof(int);
+    maxProfit(prices, n);
 
    
     
