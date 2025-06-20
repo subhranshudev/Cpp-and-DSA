@@ -120,6 +120,7 @@ void subArraySum3(int *arr, int n){
     
 }
 
+// Buy and Sell stock
 int maxProfit(int *prices, int n){
     int bestBuy[100000]; // we cant do dynamic array creation in a function like bestBuy[n]
     bestBuy[0] = INT32_MAX;
@@ -145,6 +146,46 @@ int maxProfit(int *prices, int n){
     
 }
 
+//Trap rain water
+int trapWater(int *heights, int n){
+    int leftMax[20000];
+    int rightMax[20000];
+    leftMax[0] = heights[0];
+    rightMax[n-1] = heights[n-1];
+    
+   // cout<< leftMax[0]<< ",";
+    for (int i = 1; i < n; i++)
+    {
+        leftMax[i] = max(leftMax[i-1], heights[i-1]);
+       // cout<< leftMax[i]<< ",";
+    }
+    //cout<< endl;
+    
+    //cout<< rightMax[n-1] << ",";
+    for (int i = n-2; i >= 0; i--)
+    {
+        rightMax[i] = max(rightMax[i+1], heights[i+1]);
+       // cout<< rightMax[i]<< ",";
+    }
+    //cout<< endl;
+
+    int totalWaterTrapped = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int minOfHeight = min(leftMax[i], rightMax[i]);
+        int heightOfWater = minOfHeight - heights[i];
+       // cout<< heightOfWater<<",";
+        if (heightOfWater >= 0)
+        {
+            totalWaterTrapped = totalWaterTrapped + heightOfWater;
+        }
+        
+    }
+    cout<< endl;
+    cout<< "Total water trapped = "<< totalWaterTrapped;
+    return totalWaterTrapped;
+
+}
 
 int main() {
     // PART-1-->
@@ -289,10 +330,16 @@ int main() {
     subArraySum3(arr, n);
 */
 
-    // Buy and Sell Stocks
+/*   // Buy and Sell Stocks
     int prices[] = {7, 1, 5, 3, 6, 4};
     int n = sizeof(prices)/ sizeof(int);
     maxProfit(prices, n);
+*/
+
+    // Trapping Rain Water
+    int heights[7] = {4, 2, 0, 6, 3, 2, 5};
+    int n = sizeof(heights) / sizeof(int);
+    trapWater(heights, n);
 
    
     
