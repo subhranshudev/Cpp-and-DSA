@@ -187,6 +187,53 @@ int trapWater(int *heights, int n){
 
 }
 
+// ASSIGNMENT
+bool isRepeating1(int *nums, int n){
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i+1; j < n; j++)
+        {
+            if (nums[i] == nums[j])
+            {
+                return true;
+            }  
+        }
+        return false;
+
+    }
+    
+} // Time complexity = O(N^2)
+
+// A slight more optimal approch --> Using sorting
+
+int returnIndex(int *nums, int n, int target){
+    for (int i = 0; i < n; i++)
+    {
+        if (target == nums[i])
+        {
+            return i;
+        } 
+    }
+    return -1;
+    
+} //Time complexity = O(n), Will solve again after learning time and space complexity properly
+
+int maxProduct(int *nums, int n){
+    int currProduct = 1;
+    int maxProd = INT32_MIN;
+    for (int i = 0; i < n; i++)
+    {
+        currProduct = currProduct*nums[i];
+        maxProd = max(currProduct, maxProd);
+        if (currProduct < 0)
+        {
+            currProduct = 1;
+        }
+    }
+    return maxProd;
+  
+}
+
 int main() {
     // PART-1-->
 /*  int arr[5];
@@ -336,14 +383,45 @@ int main() {
     maxProfit(prices, n);
 */
 
-    // Trapping Rain Water
+/*   // Trapping Rain Water
     int heights[7] = {4, 2, 0, 6, 3, 2, 5};
     int n = sizeof(heights) / sizeof(int);
     trapWater(heights, n);
-
+*/
    
-    
+// ASSIGNMENT
+/*   // 1. After learning sorting will solve it with more optimal approach
+    int nums1[] = {1, 2, 3, 4};
+    int n1 = sizeof(nums1) / sizeof(int);
+    int nums2[] = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
+    int n2 = sizeof(nums2) / sizeof(int);
+    bool repeating = isRepeating1(nums2, n2);
+    if (repeating)
+    {
+       cout<< "Repeating";
+    } else
+    {
+        cout<< "Not repeating";
+    }
+*/    
+  
+/*  //2. It is asked to solve it with Time complexity O(log n), After learning time and space complexity I will solve it again
+    //    Now solving with my approach --> Time complexity = O(n)
+    int nums[] = {4, 5, 6, 7, 0, 1, 2};
+    int n = sizeof(nums) / sizeof(int);
+    int target = 3;
+    int index = returnIndex(nums, n, target);
+    cout<<"Index = "<< index;
+*/
+   
+    // 3.  
+    int nums[] = {-2, 0 , -1};
 
+    int n = sizeof(nums) / sizeof(int);
+    int maxProd = maxProduct(nums, n);
+    cout<< "Maximum Product = "<< maxProd;
+
+    // After learning vector will solve all the assignments agin in coding platforms
 
     return 0;
 }
