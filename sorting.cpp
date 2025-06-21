@@ -1,4 +1,5 @@
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 void printArr(int *arr, int n){
@@ -70,7 +71,32 @@ void insertionSort(int *arr, int n){
     
 }
 
+void countingSort(int arr[], int n){
+    int freq[100000];
+    int maxVal = INT32_MIN, minVal = INT32_MAX;
+    // Creating the frequency array calculating the min and max value of given array
+    // Time complexity = O(n)
+    for (int i = 0; i < n; i++)
+    {
+        freq[arr[i]]++;
+        minVal = min(arr[i], minVal);
+        maxVal = max(arr[i], maxVal);
+    }
 
+    // updating the original array
+    // Time complexity = O(n + range)
+    for (int i = minVal, j = 0; i <= maxVal; i++)
+    {
+        while (freq[i] > 0)
+        {
+            arr[j++] = i;
+            freq[i]--;
+        }
+        
+    }
+    printArr(arr, n);
+ 
+}
 
 
 int main(){
@@ -78,8 +104,15 @@ int main(){
     int n = sizeof(arr) / sizeof(int);
    // bubbleSort(arr, n);
    // selsectionSort(arr, n);
-    insertionSort(arr, n);
-    
+    // insertionSort(arr, n);
+
+    int arr2[8] = {1, 4, 1, 3, 2, 4, 3, 7};
+    // countingSort(arr2, 8);
+
+    //Inbuilt Sort
+    //sort(arr2, arr2+8);  // Ascending Order
+    sort(arr2, arr2+8, greater<int>());  // Descending Order
+    printArr(arr2, 8);
 
 
     return 0;
