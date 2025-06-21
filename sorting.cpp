@@ -52,7 +52,22 @@ void selsectionSort(int *arr, int n){
     
 }
 
-
+void insertionSort(int *arr, int n){
+    for (int i = 1; i < n; i++)
+    {
+        int curr = arr[i];
+        int prev = i-1;
+        while (prev >= 0 && arr[prev] > curr)
+        {
+            swap(arr[prev], arr[prev+1]);
+            prev--;
+        }
+        //arr[prev+1] = curr; // No need, Because when we swap the values arrange accordingly
+        
+    }
+    printArr(arr, n);
+    
+}
 
 
 
@@ -60,7 +75,8 @@ int main(){
     int arr[] = {5, 4, 1, 3, 2};
     int n = sizeof(arr) / sizeof(int);
    // bubbleSort(arr, n);
-    selsectionSort(arr, n);
+   // selsectionSort(arr, n);
+    insertionSort(arr, n);
     
 
 
