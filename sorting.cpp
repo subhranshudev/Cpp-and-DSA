@@ -53,6 +53,7 @@ void selsectionSort(int *arr, int n){
 }
 
 void insertionSort(int *arr, int n){
+    // Time complexity = O(n^2)
     for (int i = 1; i < n; i++)
     {
         int curr = arr[i];
@@ -68,6 +69,7 @@ void insertionSort(int *arr, int n){
     printArr(arr, n);
     
 }
+
 
 
 
