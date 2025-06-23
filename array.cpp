@@ -206,7 +206,7 @@ bool isRepeating1(int *nums, int n){
 
 // A slight more optimal approch --> Using sorting
 
-int returnIndex(int *nums, int n, int target){
+int searchTarget1(int *nums, int n, int target){ // Linear Search
     for (int i = 0; i < n; i++)
     {
         if (target == nums[i])
@@ -217,6 +217,40 @@ int returnIndex(int *nums, int n, int target){
     return -1;
     
 } //Time complexity = O(n), Will solve again after learning time and space complexity properly
+
+int searchTarget2(int nums[], int n, int target){
+    int start = 0;
+    int end = n-1;
+
+    while (start <= end)
+    {
+        int mid = (start+end)/2;
+        if (target == nums[mid])
+        {
+            return mid;
+        } else if (nums[start] <= nums[mid-1])
+        {
+            if (target>= nums[start] && target <= nums[mid-1])
+            {
+                end = mid-1;
+            }else{
+                start = mid+1;
+            }
+            
+        } else {
+            if (target >=nums[mid+1] && target<= nums[end])
+            {
+                start = mid+1;
+            } else{
+                end = mid-1;
+            }
+            
+        }
+        
+        
+    }
+    return -1;
+}
 
 int maxProduct(int *nums, int n){
     int currProduct = 1;
@@ -406,21 +440,30 @@ int main() {
 */    
   
 /*  //2. It is asked to solve it with Time complexity O(log n), After learning time and space complexity I will solve it again
-    //    Now solving with my approach --> Time complexity = O(n)
+    //    Now solving with my approach --> Linear Search -->Time complexity = O(n)
     int nums[] = {4, 5, 6, 7, 0, 1, 2};
     int n = sizeof(nums) / sizeof(int);
     int target = 3;
-    int index = returnIndex(nums, n, target);
+    int index = searchTarget1(nums, n, target);
     cout<<"Index = "<< index;
 */
+
+    // Binary Search approach-->
+    int nums[] = {4, 5, 6, 7, 0, 1, 2};
+    int n = sizeof(nums) / sizeof(int);
+    int target = 6;
+    int index = searchTarget2(nums, n, target);
+    cout<< "index = "<< index;
+    
+
    
-    // 3.  
+/* // 3.  
     int nums[] = {-2, 0 , -1};
 
     int n = sizeof(nums) / sizeof(int);
     int maxProd = maxProduct(nums, n);
     cout<< "Maximum Product = "<< maxProd;
-
+*/
     // After learning vector will solve all the assignments agin in coding platforms
 
     return 0;

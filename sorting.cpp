@@ -10,6 +10,14 @@ void printArr(int *arr, int n){
     cout<<endl;
 }
 
+void printCharArr(char *arr, int n){
+    for (int i = 0; i < n; i++)
+    {
+        cout<< arr[i]<<",";
+    }
+    cout<<endl;
+}
+
 void bubbleSort(int *arr, int n){
     for (int i = 0; i < n-1; i++)
     {
@@ -98,21 +106,40 @@ void countingSort(int arr[], int n){
  
 }
 
+void sortCharacters(char arr[], int n){
+    for (int i = 1; i < n; i++)
+    {
+       char curr = arr[i];
+       int prev = i-1;
+       while (prev>=0 && arr[prev] > curr)
+       {
+            swap(arr[prev], arr[prev + 1]);
+            prev--;
+       }
+    }
+    printCharArr(arr, n);
+    
+}
 
 int main(){
     int arr[] = {5, 4, 1, 3, 2};
     int n = sizeof(arr) / sizeof(int);
-   // bubbleSort(arr, n);
-   // selsectionSort(arr, n);
+    // bubbleSort(arr, n);
+    // selsectionSort(arr, n);
     // insertionSort(arr, n);
 
     int arr2[8] = {1, 4, 1, 3, 2, 4, 3, 7};
     // countingSort(arr2, 8);
 
-    //Inbuilt Sort
+/*   //Inbuilt Sort
     //sort(arr2, arr2+8);  // Ascending Order
     sort(arr2, arr2+8, greater<int>());  // Descending Order
     printArr(arr2, 8);
+*/
+
+    // Practice Question
+    char ch[6] = {'f', 'd', 'a', 'c', 'e', 'b'};
+    sortCharacters(ch, 6);
 
 
     return 0;
