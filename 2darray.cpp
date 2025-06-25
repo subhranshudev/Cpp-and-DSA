@@ -3,6 +3,7 @@ using namespace std;
 
 void spiralMatrix(int matrix[][4], int n, int m){
     int srow = 0, scol = 0, erow = n-1, ecol = m-1;
+
     while (srow <= erow && scol <= ecol)
     {
         //top
@@ -41,9 +42,49 @@ void spiralMatrix(int matrix[][4], int n, int m){
 cout<< endl;
 }
 
+void totalDiagonalSum(int matrix[][4], int n){
+    int primaryDsum = 0, secondaryDsum = 0, common = 0, totalSum = 0;
+
+    for (int i = 0; i < n; i++) // O(N^2)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            
+            if (i == j)
+            {
+                primaryDsum = primaryDsum + matrix[i][j];   
+                totalSum = totalSum + matrix[i][j];
+            }else if (j == n-1-i)
+            {
+                secondaryDsum = secondaryDsum + matrix[i][j];
+                totalSum = totalSum + matrix[i][j];
+            }       
+        }
+        
+    }
+    cout<< "Primary diagonal sum = "<< primaryDsum<< endl ;
+    cout<< "Secondary diagonal sum = "<< secondaryDsum << endl ;
+    cout<< "Total sum = "<< totalSum<< endl;
+
+}
+
+void totalDiagonalSum2(int matrix[][3], int n){
+    int sum = 0, common = 0;
+    for (int i = 0; i < n; i++) //O(N)
+    {   
+        sum = sum + matrix[i][i];   
+        if (i != n-i-1)
+        {
+            sum = sum + matrix[i][n-i-1]; 
+        }
+        
+    }
+    cout<< "Total sum = "<< sum << endl;
+    
+}
 int main(){
     int arr[3][4];
-    int n = 3, m = 4;
+    //int n = 3, m = 4;
 /*    // Taking input and printing output
     for (int i = 0; i < n; i++)
     {
@@ -65,6 +106,7 @@ int main(){
     }
 */   
 
+/*    // Spiral matrix
 int matrix[4][4] = { {1, 2, 3, 4},
                      {5, 6, 7, 8},
                      {9, 10, 11, 12},
@@ -76,5 +118,21 @@ int matrix2[3][4] = { {1, 2, 3, 4},
                      {5, 6, 7, 8},
                      {9, 10, 11, 12} };
 spiralMatrix(matrix2, 3, 4);
+*/
+
+    // Diagonal sum
+    int matrix[4][4] = { {1, 2, 3, 4},
+                        {5, 6, 7, 8},
+                        {9, 10, 11, 12},
+                        {13, 14, 15, 16} };
+    int matrix2[3][3] = { {1, 2, 3},
+                         {4, 5, 6},
+                         {7, 8, 9} };
+    // totalDiagonalSum(matrix, 4);
+    //totalDiagonalSum(matrix2, 3);
+    //totalDiagonalSum2(matrix, 4);
+    totalDiagonalSum2(matrix2, 3);
+
+
     return 0;
 }
