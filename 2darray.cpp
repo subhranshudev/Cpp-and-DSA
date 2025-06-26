@@ -82,6 +82,42 @@ void totalDiagonalSum2(int matrix[][3], int n){
     cout<< "Total sum = "<< sum << endl;
     
 }
+
+bool search(int matrix[][4], int n, int m, int key){
+    int i = 0, j = m-1;
+    while(i<n && j>=0){
+        if (matrix[i][j] == key)
+        {
+           cout<< "Found at ("<< i<< ","<< j<< ")\n";
+           return true;
+        } else if(matrix[i][j] < key){
+            i++;
+        } else{
+            j--;
+        }
+    }
+    cout<< "Key not found \n";
+    return false;
+}
+
+bool search2(int matrix[][4], int n, int m, int key){
+    int i = n-1, j = 0;
+    while(i>=0 && j<m){
+        if (matrix[i][j] == key)
+        {
+           cout<< "Found at ("<< i<< ","<< j<< ")\n";
+           return true;
+        } else if(matrix[i][j] < key){
+            j++;
+        } else{
+            i--;
+        }
+    }
+    cout<< "Key not found \n";
+    return false;
+}
+
+
 int main(){
     int arr[3][4];
     //int n = 3, m = 4;
@@ -120,7 +156,7 @@ int matrix2[3][4] = { {1, 2, 3, 4},
 spiralMatrix(matrix2, 3, 4);
 */
 
-    // Diagonal sum
+/*   // Diagonal sum
     int matrix[4][4] = { {1, 2, 3, 4},
                         {5, 6, 7, 8},
                         {9, 10, 11, 12},
@@ -132,7 +168,15 @@ spiralMatrix(matrix2, 3, 4);
     //totalDiagonalSum(matrix2, 3);
     //totalDiagonalSum2(matrix, 4);
     totalDiagonalSum2(matrix2, 3);
+*/
 
+    // Search in sorted(both row and column) matrix
+    int matrix[4][4] = { {10, 20, 30, 40},
+                         {15, 25, 35, 45},
+                         {27, 29, 37, 48},
+                         {32, 33, 39, 50} };
+    //search(matrix, 4, 4, 32);
+    search2(matrix, 4, 4, 39);
 
     return 0;
 }
