@@ -129,10 +129,37 @@ void matrixPtr(int mat[][4], int n, int m){
     cout<< "Value of a particular element = "<< *(*(mat + 3)+3)<< endl;
 }
 
+void keyNum(int mat[][3], int n, int m, int key){
+    int num = 0;
+    for (int i = 0; i < n; i++)
+    {
+       for (int  j = 0; j < m; j++)
+       {
+            if (mat[i][j] == key)
+            {
+                num++;
+            }
+            
+       }
+       
+    }
+    cout<< key << " is present "<< num << " times \n";
+    
+}
+
+int sumIthrow(int mat[][3], int m, int rownum){
+    int sum = 0;
+    for (int j = 0; j < m; j++)
+    {
+        sum = sum + mat[rownum-1][j];
+    }
+    cout<< "Sum of elements of row " << rownum << " = "<< sum<< endl;
+    return sum;
+}
 
 
 int main(){
-    int arr[3][4];
+    //int arr[3][4];
     //int n = 3, m = 4;
 /*    // Taking input and printing output
     for (int i = 0; i < n; i++)
@@ -192,12 +219,91 @@ spiralMatrix(matrix2, 3, 4);
     search2(matrix, 4, 4, 39);
 */
 
-    // Matrix Pointer
+/*   // Matrix Pointer
     int mat[4][4] = { {1, 2, 3, 4},
                     {5, 6, 7, 8},
                     {9, 10, 11, 12},
                     {13, 14, 15, 16} };
     matrixPtr(mat, 4, 4);
+*/
+
+    // ASSIGNMENT
+/*    // 1. Print how many times a particular number or element is present
+    int arr[2][3] = { {4, 7, 8},
+                       {8, 8, 7} };
+    keyNum(arr, 2, 3, 8);
+*/
+
+/*    // 2. Print the sum of numbers in ith row
+    int nums[][3] = { {1, 4, 9},
+                       {11, 4, 3},
+                       {2, 2, 3} };
+
+    sumIthrow(nums, 3, 2);
+*/
+    
+/*    // 3. Transpose of a matrix
+    int row = 2, col = 3;
+    int mat[][col] =  { {1, 2, 3},
+                        {4, 5, 6} };
+
+    int transpose[col][row] = {{0}};
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+           transpose[j][i] = mat[i][j];
+        };
+        
+    }
+
+    for (int i = 0; i < col; i++)
+    {
+        for (int j = 0; j < row; j++)
+        {
+          cout<< transpose[i][j] <<" ";
+        }
+        cout<< endl;
+        
+    }
+*/
+
+/*    // convert 1D array to 2D array --> Leetcode 2022
+    // Solution using array
+    int original[] = {1, 2, 3, 4, 5, 6};
+    int size = sizeof(original) / sizeof(int);
+    int m =3, n = 2;
+
+   if ((size % 2) != 0)
+   {
+     cout << "can't convert to 2D array"<< endl;
+   } else {
+        int mat[m][n] = {{0}};
+        int k = 0;
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+            mat[i][j] = original[k];
+            k++;
+            }
+            
+        }
+
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+            cout<< mat[i][j] <<" ";
+            }
+            cout<< endl;
+            
+        }
+        
+   }
+*/   
+ 
+    
 
     return 0;
 }
