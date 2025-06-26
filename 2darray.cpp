@@ -117,6 +117,19 @@ bool search2(int matrix[][4], int n, int m, int key){
     return false;
 }
 
+void matrixPtr(int mat[][4], int n, int m){
+    cout<< "Matrix row Pointer = "<< mat<< endl;
+    cout<< "Matrix row Pointer = "<< mat+1<< endl;
+    cout<< "Matrix row Pointer = "<< mat+2<< endl;
+
+    cout<< "Matrix row value = "<< *(mat)<< endl;
+    cout<< "Matrix row value = "<< *(mat+1)<< endl;
+    cout<< "Matrix row value = "<< *(mat+2)<< endl;
+
+    cout<< "Value of a particular element = "<< *(*(mat + 3)+3)<< endl;
+}
+
+
 
 int main(){
     int arr[3][4];
@@ -170,13 +183,21 @@ spiralMatrix(matrix2, 3, 4);
     totalDiagonalSum2(matrix2, 3);
 */
 
-    // Search in sorted(both row and column) matrix
+/*    // Search in sorted(both row and column) matrix
     int matrix[4][4] = { {10, 20, 30, 40},
                          {15, 25, 35, 45},
                          {27, 29, 37, 48},
                          {32, 33, 39, 50} };
     //search(matrix, 4, 4, 32);
     search2(matrix, 4, 4, 39);
+*/
+
+    // Matrix Pointer
+    int mat[4][4] = { {1, 2, 3, 4},
+                    {5, 6, 7, 8},
+                    {9, 10, 11, 12},
+                    {13, 14, 15, 16} };
+    matrixPtr(mat, 4, 4);
 
     return 0;
 }
