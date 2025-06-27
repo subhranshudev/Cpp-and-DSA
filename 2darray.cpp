@@ -157,6 +157,11 @@ int sumIthrow(int mat[][3], int m, int rownum){
     return sum;
 }
 
+/*void swap(int &val1, int &val2){
+    int temp = val1;
+    val1 = val2;
+    val2 = temp;
+}*/ // Or I can use the inbuilt swap function
 
 int main(){
     //int arr[3][4];
@@ -303,6 +308,73 @@ spiralMatrix(matrix2, 3, 4);
    }
 */   
  
+    // Rotate image
+    
+    int mat[][3] = { {1, 2, 3},
+                     {4, 5, 6},
+                     {7, 8, 9} };
+    int mat2[][4] = { {5, 1, 9, 11},
+                      {2, 4, 8, 10},
+                      {13, 3, 6, 7},
+                      {15, 14, 12, 16} };
+    int row = 3, col = 3;
+
+/*  // Brute force approach --> with creating a extra matrix
+    int rotated[col][row] = {{0}};
+    for (int i = 0; i < row; i++)
+    {
+       for (int j = 0; j < col; j++)
+       {
+            rotated[j][col-1-i] = mat2[i][j];
+       }
+       
+    }
+
+    for (int i = 0; i < col; i++)
+    {
+        for (int j = 0; j < row; j++)
+        {
+          cout<< rotated[i][j] <<" ";
+        }
+        cout<< endl;
+        
+    }
+*/
+    
+    //Optimised --> Without creating any extra array
+    // Taking transpose of swquare matrix
+    for (int i = 0; i < row; i++)
+    {
+       for (int j = i+1; j < col; j++)
+       {
+            swap(mat[i][j], mat[j][i]);
+       }
+       
+    }
+
+    for (int i = 0; i < row; i++)
+    {
+        int start = 0, end = col-1;
+        while (start<=end)
+        {
+           swap(mat[i][start], mat[i][end]);
+           start++;
+           end--;
+        }
+        
+    }
+    
+
+    //Printing the array
+    for (int i = 0; i < row; i++)
+    {
+        for (int j = 0; j < col; j++)
+        {
+          cout<< mat[i][j] <<" ";
+        }
+        cout<< endl;
+        
+    }
     
 
     return 0;
