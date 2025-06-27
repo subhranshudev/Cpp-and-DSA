@@ -215,7 +215,7 @@ spiralMatrix(matrix2, 3, 4);
     totalDiagonalSum2(matrix2, 3);
 */
 
-/*    // Search in sorted(both row and column) matrix
+/*    // Search in sorted(both row and column) matrix --> same to Leetcode 240
     int matrix[4][4] = { {10, 20, 30, 40},
                          {15, 25, 35, 45},
                          {27, 29, 37, 48},
@@ -232,7 +232,7 @@ spiralMatrix(matrix2, 3, 4);
     matrixPtr(mat, 4, 4);
 */
 
-    // ASSIGNMENT
+    // ASSIGNMENT AND PRACTICE QUESTIONS
 /*    // 1. Print how many times a particular number or element is present
     int arr[2][3] = { {4, 7, 8},
                        {8, 8, 7} };
@@ -281,7 +281,7 @@ spiralMatrix(matrix2, 3, 4);
 
    if ((size % 2) != 0)
    {
-     cout << "can't convert to 2D array"<< endl;
+     cout << "can't convert to 2D array"<< endl; // another edge case --> if number of elements in original array is less than size of 2d matrix(m*n) then cant form the 2D matrix ; will add it
    } else {
         int mat[m][n] = {{0}};
         int k = 0;
@@ -308,8 +308,7 @@ spiralMatrix(matrix2, 3, 4);
    }
 */   
  
-    // Rotate image
-    
+/*    // Rotate image --> Leetcode 48
     int mat[][3] = { {1, 2, 3},
                      {4, 5, 6},
                      {7, 8, 9} };
@@ -319,7 +318,8 @@ spiralMatrix(matrix2, 3, 4);
                       {15, 14, 12, 16} };
     int row = 3, col = 3;
 
-/*  // Brute force approach --> with creating a extra matrix
+  // Brute force approach --> with creating a extra matrix
+
     int rotated[col][row] = {{0}};
     for (int i = 0; i < row; i++)
     {
@@ -339,10 +339,10 @@ spiralMatrix(matrix2, 3, 4);
         cout<< endl;
         
     }
-*/
+
     
     //Optimised --> Without creating any extra array
-    // Taking transpose of swquare matrix
+    // Taking transpose of square matrix
     for (int i = 0; i < row; i++)
     {
        for (int j = i+1; j < col; j++)
@@ -352,6 +352,7 @@ spiralMatrix(matrix2, 3, 4);
        
     }
 
+    // Rotating each row
     for (int i = 0; i < row; i++)
     {
         int start = 0, end = col-1;
@@ -375,7 +376,56 @@ spiralMatrix(matrix2, 3, 4);
         cout<< endl;
         
     }
-    
+ */   
 
+/*   // Search a 2D matrix --> Leetcode 240
+    int matrix[][4] = { {1, 3, 5, 7},
+                        {10,11,16,20},
+                        {23,30,34,60}};
+    int n = 3, m = 4;
+    int key = 13;
+    int row = 0, col = m - 1;
+    while (row < n && col >= 0)
+    {
+        if (matrix[row][col] == key)
+        {
+            cout<< "Found at ("<< row<< " , "<< col<< ")";
+            return true;
+        }else if(matrix[row][col] < key){
+            row++;
+        } else{
+            col--;
+        }
+        
+    }
+    cout<< "Key not found\n";
+    return false;
+*/  
+
+    // Search a 2D matrix --> Leetcode 74
+    int mat[][4] = { {1,  3,  5,  7},
+                     {10, 11, 16, 20},
+                     {23, 30, 40, 60} };
+    int n = 3, m = 4, key = 16;
+    int start = 0, end = (n*m)-1;
+    while (start <= end) {
+       int mid = start + ((end - start)/2);
+       int r = mid / m;
+       int c = mid % m;
+       if (mat[r][c] == key)
+       {
+        cout << "Found at ("<< r<< ","<< c<< ")\n";
+        return true;
+       } else if (mat[r][c] < key)
+       {
+        start = mid + 1;
+       } else { 
+        end = mid - 1;
+       }
+    }
+    cout<< "Key not found\n";
+    return false;
+    
+    
     return 0;
 }
