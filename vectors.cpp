@@ -25,7 +25,7 @@ int* func(){ // as it returns an address , so return type is int*(i.e. pointer)
     return ptr;
 }
 
-vector<int> pairSum(vector<int> vec, int target){ // Time complexity = O(n^2)
+vector<int> pairSum(vector<int> vec, int target){ // Time complexity = O(n^2) --> Leetcode 167
     int st = 0, end = vec.size() - 1, currSum = 0;
     vector<int> ans;
     while(st < end){
@@ -80,11 +80,44 @@ int main(){
     cout<< "capacity = "<< vec.capacity()<< endl;
 */
 
-    //pair sum
+/*    //pair sum --> Leetcode 167
     vector<int> vec = {2, 7, 11, 15};
     int target = 9;
     vector<int> ans = pairSum(vec, target);
     cout<< ans[0]<< ","<< ans[1]<< endl;
+*/
+
+    // 2D Vector
+    vector <vector<int>> matrix = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
+    for (int i = 0; i < matrix.size(); i++)
+    {
+       for (int j = 0; j < matrix[i].size(); j++)
+       {
+            cout<< matrix[i][j]<< " ";
+       }
+       cout<< endl;
+    }
+
+    vector <vector<int>> matrix2 = { {1, 2, 3}, {4, 5}, {6} };
+    for (int i = 0; i < matrix2.size(); i++)
+    {
+       for (int j = 0; j < matrix2[i].size(); j++)
+       {
+            cout<< matrix2[i][j]<< " ";
+       }
+       cout<< endl;
+    }
+
+    // Q
+    vector<int> v;
+    for (int i = 0; i < 5; i++)
+    {
+        v.push_back(i);
+    }
+    cout<< v.size()<< endl;
+    cout<< v.capacity()<< endl;
+    
+    
 
 
 
