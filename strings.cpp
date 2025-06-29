@@ -1,5 +1,6 @@
 #include<iostream>
-#include<string.h> // or <cstring>
+#include<cstring> // or <string.h> --> For char array
+#include<string>
 using namespace std;
 
 void toUpperCase(char word[], int n){
@@ -57,8 +58,28 @@ bool isdPalindrome(char word[], int n){
     return true;
 }
 
+bool isAnagram(string str1, string str2) {
+        if(str1.length() != str2.length()){
+            cout<< "Not a valid Anagram\n";
+            return false;
+        }
 
-
+        int count[26];
+        for(int i = 0; i < str1.length(); i++){
+            int index = str1[i] - 'a';
+            count[index]++;
+        }
+        for(int i = 0; i < str2.length(); i++){
+            int index = str2[i] - 'a';
+            if(count[index] == 0){
+                cout<< "Not a valid Anagram\n";
+                return false;
+            }
+            count[index]--;
+        }
+        cout<< "Valid Anagram\n";
+        return true;
+    }
 
 int main(){
 /*  // Basics 
@@ -104,6 +125,42 @@ int main(){
     char word[] = "racecar";
     isdPalindrome(word, strlen(word));
 */
+
+/*   // cstring functions
+    char str1[100] = "xbox";
+    char str2[100] = "mango";
+    cout<< strcmp(str1, str2)<< endl;
+*/
+
+    //STRINGS
+/*   // Basics
+    string str = "hello";
+    cout<< str<< endl;
+    str = "sekhar";
+    cout<< str<< endl;
+
+    cout<< "Enter: ";
+    string str2;
+    //cin>> str2;
+    getline(cin, str2);
+    cout << str2<< endl;
+    cout<< str2[0]<< endl;
+    cout<< str2[1]<< endl;
+    cout<< str2[2]<< endl;
+*/
+
+/*   // Member Functions
+    string str = "Hello, I am Subhranshu Sekhar Swain.";
+    cout<< str.length() << endl;
+    cout<< str.at(1) << endl;
+    cout<< str.substr(12, 10) << endl;
+    cout<< str.find("Sekhar") << endl;
+*/
+
+    // Valid Anagram-->
+    string str1 = "anagram";
+    string str2 = "nagaram";
+    isAnagram(str1, str2);
 
     return 0;
 }
