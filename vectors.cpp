@@ -54,6 +54,33 @@ int main(){
     // int *x = func(); // created apointer to store the returned address
     // cout << *x<< endl; // derefered the address in pointer and printed its value
 
+    // 2D dynamic arrays
+    int rows, cols;
+    cout<< "Enter Row: ";
+    cin>> rows;
+    cout<< "Enter columns: ";
+    cin>> cols;
+
+    int* *matrix = new int*[rows];
+    for (int i = 0; i < rows; i++)
+    {
+        matrix[i] = new int[cols]; 
+    }
+
+    int x = 1;
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+           matrix[i][j] = x++;
+           cout<< matrix[i][j]<< " ";
+        }
+        cout<< endl;
+    }
+    cout<< matrix[2][2]<< endl;
+    cout<< *(*(matrix+2) + 2)<< endl;
+
+
     // VECTORS
 /*   // Basics
     vector<int> vec1 = {1, 2, 3, 4};
@@ -87,7 +114,7 @@ int main(){
     cout<< ans[0]<< ","<< ans[1]<< endl;
 */
 
-    // 2D Vector
+/*    // 2D Vector
     vector <vector<int>> matrix = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
     for (int i = 0; i < matrix.size(); i++)
     {
@@ -116,7 +143,7 @@ int main(){
     }
     cout<< v.size()<< endl;
     cout<< v.capacity()<< endl;
-    
+*/    
     
 
 
