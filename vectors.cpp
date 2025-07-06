@@ -54,7 +54,7 @@ int main(){
     // int *x = func(); // created apointer to store the returned address
     // cout << *x<< endl; // derefered the address in pointer and printed its value
 
-    // 2D dynamic arrays
+/*    // 2D dynamic arrays
     int rows, cols;
     cout<< "Enter Row: ";
     cin>> rows;
@@ -79,7 +79,7 @@ int main(){
     }
     cout<< matrix[2][2]<< endl;
     cout<< *(*(matrix+2) + 2)<< endl;
-
+*/
 
     // VECTORS
 /*   // Basics
@@ -143,8 +143,19 @@ int main(){
     }
     cout<< v.size()<< endl;
     cout<< v.capacity()<< endl;
-*/    
-    
+*/   
+    // Another way to declare a 2D vector when number of rows and columns are known and it is initialized with 0 by default
+  int m = 3, n = 3;
+    vector<vector<int>> mat(m, vector<int>(n));
+    // cout<< mat.size();
+    for(int i = 0; i< mat.size(); i++){
+        for (int j = 0; j < mat[i].size(); j++)
+        {
+           cout<<mat[i][j]<< " ";
+        }
+        cout<< endl;
+    }
+
 
 
 
