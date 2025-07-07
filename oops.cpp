@@ -223,6 +223,157 @@ public:
     }
 };
 
+class Print{
+public:
+    void show(int x){
+        cout<<"int: " << x<< endl;
+    }
+    void show(string str){
+        cout<<"string: " << str<< endl;
+    }
+};
+
+class Complex{
+    int real;
+    int img;
+public:
+    Complex(int r, int i){
+        real = r;
+        img = i;
+    }
+    void showNum(){
+        cout<< real << "+"<<img << "i\n";
+    }
+
+    // Operator Overloading
+    Complex operator + (Complex &obj){
+       int realRes = this->real + obj.real;
+       int imgRes = this->img + obj.img;
+       Complex c3(realRes, imgRes);
+       return c3;
+    }
+
+    Complex operator - (Complex &c2){
+        int realRes = this->real - c2.real;
+        int imgRes = this->img - c2.img;
+        Complex c3(realRes, imgRes);
+        return c3;
+    }
+};
+
+class Parent{
+public:
+    void show(){
+        cout<< "Parent class show..\n";
+    }
+
+    virtual void hello(){
+        cout<< "Parent hello\n";
+    }
+};
+class Child : public Parent{
+public:
+    void show(){
+        cout<< "Child class show..\n";
+    }
+
+    void hello(){
+        cout<< "Child hello\n";
+    }
+};
+
+// abstract class and Pure virtual function
+class Shape{
+public:
+    virtual void draw() = 0;
+};
+class Circle : public Shape{
+public: 
+    void draw(){
+        cout<< "Circle Drawn\n";
+    }
+};
+class Square : public Shape{
+public: 
+    void draw(){
+        cout<< "Square Drawn\n";
+    }
+};
+
+void counter(){
+    static int count = 0;
+    count++;
+    cout<< "Count: "<< count<< endl;
+}
+
+class Example{
+public:
+    static  int x;
+    //static const int x = 0;
+};
+//or 
+int Example::x = 0;
+
+class Example2{
+public:
+    Example2(){
+        cout<< "Constructed...\n";
+    }
+    ~Example2(){
+        cout<< "Destructed...\n";
+    }
+};
+
+// Friend class and function
+class A{
+    string secret = "Secret Data";
+    friend class B;
+    friend void revealSecret(A &obj);
+};
+
+class B{
+public:
+    void showSecret(A &obj){
+        cout<< obj.secret << endl;
+    }
+};
+
+void revealSecret(A &obj){
+    cout<< obj.secret<< endl;
+}
+
+class C{
+public:
+    C(){
+        cout<< "Constructor C\n";
+    }
+    ~C(){
+        cout<< "Destructor C\n";
+    }
+};
+class D : public C{
+public:
+    D(){
+        cout<< "Constructor D\n";
+    }
+    ~D(){
+        cout<< "Destructor D\n";
+    }
+};
+
+class Base{
+public: 
+    virtual void print(){
+        cout<< "Base\n";
+    }
+};
+class Derived : public Base{
+public: 
+    void print(){
+        cout<< "Derived\n";
+    }
+};
+
 int main(){
     //User u1; // object
     //cout<< sizeof(u1)<< endl;
@@ -310,7 +461,7 @@ int main(){
     cout<< "cgpa: "<< ta1.cgpa<< endl;
 */
 
-    // Hierarchial Inheritance
+/*    // Hierarchial Inheritance
     Birds b1;
     b1.fly();
     b1.breathe();
@@ -320,9 +471,91 @@ int main(){
     f0.swim();
     f0.breathe();
     f0.eat();
-
+*/
      
-    // Hybrid Inheritance
+    // Hybrid Inheritance --> Mix of all type of Inheritance
+
+    // Polymorphism
+/*    // Compile Time Polymorphism - Function Overloading
+    Print obj1;
+    obj1.show(25);
+    obj1.show("sekhar");
+
+    // Compile Time Polymorphism - Operator Overloading
+    Complex c1(1, 2);
+    Complex c2(3, 4);
+
+    c1.showNum();
+    c2.showNum();
+
+    Complex c3 = c1 + c2;
+    c3.showNum();
+
+    Complex c4 = c1 - c2;
+    c4.showNum();
+*/
+
+/*    // Run Time Polymorphism - Function Overriding
+    Child child1;
+    child1.show();
+
+    // Run Time Polymorphism - Virtual Function 
+    Child child1;
+    Parent *ptr;
+
+    ptr = &child1;  //Run time binding
+    ptr->hello(); // Virtual function
+*/
+
+/*   // Abstraction
+    Circle circle1;
+    circle1.draw();
+
+    Square square1;
+    square1.draw();
+*/
+
+    //Static Keyword
+/*    // Static Variable
+    //Function
+    counter();
+    counter();
+    counter();
+
+    // Class
+    Example eg1;
+    Example eg2;
+    Example eg3;
+
+    cout<< eg1.x++<< endl;
+    cout<< eg2.x++<< endl;
+    cout<< eg3.x++<< endl;
+*/
+
+/*    //Static Object
+    int a = 0;
+    if (a == 0)
+    {
+        static Example2 eg1;
+    }
+
+    cout<< "code ending...\n";
+*/    
+
+/*    //Friend Class and Friend Function
+    A a1;
+    B b1;
+    b1.showSecret(a1);
+    revealSecret(a1);
+*/
+
+    // Practice Q
+    //D d1; 
+
+    Base *b = new Derived();
+    b->print();
+    delete b;
+    
 
     return 0;
 }
