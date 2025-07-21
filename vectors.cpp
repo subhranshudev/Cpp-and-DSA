@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
 
 void funcArr(){
@@ -143,8 +144,9 @@ int main(){
     }
     cout<< v.size()<< endl;
     cout<< v.capacity()<< endl;
-*/   
-    // Another way to declare a 2D vector when number of rows and columns are known and it is initialized with 0 by default
+*/
+
+/*    // Another way to declare a 2D vector when number of rows and columns are known and it is initialized with 0 by default
   int m = 3, n = 3;
     vector<vector<int>> mat(m, vector<int>(n));
     // cout<< mat.size();
@@ -155,9 +157,62 @@ int main(){
         }
         cout<< endl;
     }
+*/
 
+    // Majority Element
+/*    // Brute Force
+    vector<int> nums = {2,2,1,1,1,2,2};
+    int n = nums.size();
+    for(int val : nums){
+        int freq = 0;
+        for(int el : nums){
+            if(el == val){
+                freq++;
+            }
+        }
+        if(freq > n/2){
+            cout<< val;
+            return val;
+        }
+    }
+*/
 
+/*    // Optimal--> using sorting
+    vector<int> nums = {2,2,1,1,1,2,2};
+    int n = nums.size();
+    sort(nums.begin(), nums.end());
+    int freq = 1;
+    int ans = nums[0];
+    for(int i = 1; i < n; i++){
+        if(nums[i] == nums[i-1]){
+            freq++;
+        } else{
+            freq = 1;
+            ans = nums[i];
+        }
+        if(freq > n/2){
+            cout<< ans;
+            return ans;
+        }
+    }
+*/
 
+    // Moores Algorithm
+    vector<int> nums = {2,2,1,1,1,2,2};
+    int freq = 0, ans = 0;
+    for(int i = 0; i< nums.size(); i++){
+        if(freq == 0){
+            ans = nums[i];
+        }
+        if(ans == nums[i]){
+            freq++;
+        } else{
+            freq--;
+        }
+    }
+    cout<< ans << endl;
+    return ans;
+    
 
     return 0;
 }
