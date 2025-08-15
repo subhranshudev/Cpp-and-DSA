@@ -175,10 +175,9 @@ void allOccurences(int arr[], int size, int key, int i){
     
     if (arr[i] == key){
         cout<< i<< " ";
-        return allOccurences(arr, size, key, i+1);
-    } else{
-        return allOccurences(arr, size, key, i+1);
-    }   
+    } 
+
+    allOccurences(arr, size, key, i+1);  
 }
 
 int countSubstring(string str, int start, int i, int count){
@@ -190,13 +189,19 @@ int countSubstring(string str, int start, int i, int count){
     }
 
     if (str[start] == str[i]){
-        count++;
-        return countSubstring(str, start, i+1, count);
-    }else{
-        return countSubstring(str, start, i+1, count);
+        count++; 
     }
+
+    return countSubstring(str, start, i+1, count);
 }
 
+void towerOfHanoi(int n, string src, string helper, string dest){
+    if(n > 0){
+        towerOfHanoi(n-1, src, dest, helper);
+        cout<< "Moving disc from "<< src << " to "<< dest<< endl;
+        towerOfHanoi(n-1, helper, src, dest);
+    }
+}
 
 int main(){
     // int ans = factorial(5);
@@ -276,10 +281,15 @@ int main(){
     allOccurences(arr, 9, key, 0);
 */
 
-    // Q.3
+/*    // Q.3
     string str = "abcab";
     string str2 = "aba";
     cout<< "count: " << countSubstring(str2, 0, 0, 0)<< endl;
+*/
+
+   // Tower of Hanoi
+    //towerOfHanoi(3, "source", "helper", "destination");
+    towerOfHanoi(3, "A", "B", "C");
 
 
 
