@@ -203,6 +203,29 @@ void towerOfHanoi(int n, string src, string helper, string dest){
     }
 }
 
+// Count good numbers --> Leetcode-1922
+long long fastExpo(long long x, long long n, long long mod){
+        long long ans = 1;
+        while(n > 0){
+            int lastBit = n&1;
+            if(lastBit){
+                ans = (ans*x)%mod;
+            }
+            
+            x= (x*x)%mod;
+            n = n>>1;
+        }
+        return ans;
+    }
+    int countGoodNumbers(long long n) {
+        long long mod = 1000000007;
+        long long evenPos = (n+1)/2;
+        long long oddPos = n/2;
+
+        return (int)(fastExpo(5, evenPos, mod) * fastExpo(4, oddPos, mod) % mod);
+    }
+
+
 int main(){
     // int ans = factorial(5);
     // cout<< ans<< endl;
@@ -287,12 +310,23 @@ int main(){
     cout<< "count: " << countSubstring(str2, 0, 0, 0)<< endl;
 */
 
-   // Tower of Hanoi
+/*   // Tower of Hanoi
     //towerOfHanoi(3, "source", "helper", "destination");
     towerOfHanoi(3, "A", "B", "C");
+*/
 
+// int a = -1;
+// int b = 2;
+// int n = a/b;
+// //cout << "n = "<< n<< endl;
 
+// double x = (1/2)%2;
+// cout<<" x = "<< x<< endl;
 
+   
+    cout <<  countGoodNumbers(50)<< endl;
+    
+    
 
     return 0;
 }
