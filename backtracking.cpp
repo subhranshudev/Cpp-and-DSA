@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 
 void printArr(int arr[], int n){
@@ -45,17 +46,98 @@ void permutations(string str, string permStr){
     }
 }
 
+// N-Queens
+void printBoard(vector<vector<char>> board){
+    for(int i = 0; i< board.size(); i++){
+        for(int j = 0; j< board.size(); j++){
+            cout<< board[i][j]<< " ";
+        }
+        cout<< endl;
+    }
+    cout<< "-----------------------"<< endl;
+}
+
+bool isSafe(vector<vector<char>> board, int row, int col){
+    int n = board.size();
+    // horizontally
+    for(int j = 0; j < n; j++){
+        if(board[row][j] == 'Q'){
+            return false;
+        }
+    }
+
+    // vertically
+    for(int i = 0; i< row; i++){
+        if(board[i][col] == 'Q'){
+            return false;
+        }
+    }
+
+    // diagonal left
+    for(int i = row, j = col; i>=0 && j>=0; i--, j--){
+        if(board[i][j] == 'Q'){
+            return false;
+        }
+    }
+
+    // diagonal right
+    for(int i = row, j = col; i>=0 && j < n; i--, j++){
+        if(board[i][j] == 'Q'){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int nQueens(vector<vector<char>> board, int row){
+    int n = board.size();
+    if(row == n){
+        printBoard(board);
+        return 1;
+    }
+
+    int count = 0;
+    for(int j = 0; j< n; j++){
+        if(isSafe(board, row, j)){
+            board[row][j] = 'Q';
+            count += nQueens(board, row+1);
+            board[row][j] = '.';
+        }
+    }
+    return count;
+}
+
 int main(){
     int arr[5];
-    int n = 5;
+    //int n = 5;
     // changeArr(arr, n, 0);
     // printArr(arr, n);
 
-    string str = "abc";
-    subsets(str, "");
+    // string str = "abc";
+    // subsets(str, "");
 
-    string str = "abc";
-    string ans = "";
-    permutations(str, ans);
+    // string str = "abc";
+    // string ans = "";
+    // permutations(str, ans);
+
+    // N-Queens --> TC = O(n!), SC = O(n^2)
+    vector<vector<char>> board;
+    int n = 4;
+
+    for(int i = 0; i< n; i++){
+        vector<char> newRow;
+        for (int j = 0; j < n; j++){
+            newRow.push_back('.');
+        }
+        board.push_back(newRow);  
+    }
+    // printBoard(board);
+    int count = nQueens(board, 0);
+    // 2 another variations of N-Queens
+    // 1-> Count of all solutions
+       cout<< "count = "<< count;
+    // 2-> Print any one solution
+
     return 0;
 }
