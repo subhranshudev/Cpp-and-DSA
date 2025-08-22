@@ -108,6 +108,23 @@ int nQueens(vector<vector<char>> board, int row){
     return count;
 }
 
+// Grid ways
+int gridWays(int row, int col, int n, int m, string move){   // --> TC = O(2^(m+n))
+    if(row == n-1 && col == m-1){ // Basecase
+        cout<< move<< '\n';
+        return 1;
+    }
+    if(row >= n ||  col >= m){ // Important basecase
+        return 0;
+    }
+
+    int val1 = gridWays(row, col+1, n, m, move+"R"); // MOve Right
+    int val2 = gridWays(row+1, col, n, m, move+"D");  // Move Down
+
+    return val1 + val2; // Add the number of ways if moved right and moved down AND return
+}
+
+
 int main(){
     int arr[5];
     //int n = 5;
@@ -121,7 +138,7 @@ int main(){
     // string ans = "";
     // permutations(str, ans);
 
-    // N-Queens --> TC = O(n!), SC = O(n^2)
+/*    // N-Queens --> TC = O(n!), SC = O(n^2)
     vector<vector<char>> board;
     int n = 4;
 
@@ -138,6 +155,14 @@ int main(){
     // 1-> Count of all solutions
        cout<< "count = "<< count;
     // 2-> Print any one solution
+*/
+    
+    int n =3, m = 3;
+    string move = "";
+    cout<< "Total grid ways = "<< gridWays(0, 0 , n, m, move)<< endl;
+
+
+
 
     return 0;
 }
