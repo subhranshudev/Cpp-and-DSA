@@ -124,6 +124,55 @@ int gridWays(int row, int col, int n, int m, string move){   // --> TC = O(2^(m+
     return val1 + val2; // Add the number of ways if moved right and moved down AND return
 }
 
+// Generate Parentheses --> Leetcode --> 22
+bool isSafeforClose(string str, int i, int n){
+    int openPcount = 0, closePcount = 0;
+    for(int j = 0; j < i; j++){
+        if(str[j] == '('){
+            openPcount++;
+        }else{
+            closePcount++;
+        }
+    }
+    if((closePcount < n) && (openPcount > closePcount)){
+        return true;
+    } else{
+        return false;
+    }
+
+}
+bool isSafeforOpen(string str, int i, int n){
+    int openPcount = 0;
+    for(int j = 0; j < i; j++){
+        if(str[j] == '('){
+            openPcount++;
+        }
+    }
+    if((openPcount < n)){
+        return true;
+    } else{
+        return false;
+    }
+
+}
+void wellParentheses(string str, int n,  int i){
+
+    if(i == (2*n)-1){
+        str += ')';
+        cout<< str<< '\n';
+        return;
+    }
+
+    if(isSafeforOpen(str, i, n)){
+        wellParentheses(str+"(", n, i+1);
+    }
+
+    if(isSafeforClose(str, i, n)){
+        wellParentheses(str+")", n, i+1);
+    }
+   
+}
+
 
 int main(){
     int arr[5];
@@ -157,11 +206,16 @@ int main(){
     // 2-> Print any one solution
 */
     
+/*    // Grid Ways
     int n =3, m = 3;
     string move = "";
     cout<< "Total grid ways = "<< gridWays(0, 0 , n, m, move)<< endl;
+*/
 
-
+    // Generate Parentheses --> Leetcode --> 22
+    string str = "(";
+    int n = 3, i = 1;
+    wellParentheses(str, n, i);
 
 
     return 0;
