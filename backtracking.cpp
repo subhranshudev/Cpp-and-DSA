@@ -124,6 +124,70 @@ int gridWays(int row, int col, int n, int m, string move){   // --> TC = O(2^(m+
     return val1 + val2; // Add the number of ways if moved right and moved down AND return
 }
 
+// Rat in maze 
+int ratInMaze(vector<vector<int>> &maze, int row, int col, string move, vector<vector<bool>> &visited){
+ // Always remember by default vector is pass by value. So in functions you have to pass it in pass by reference
+ // Here the bug was I was passing visited in form of pass by value, hence in each call a copy of visited was made AND when we return to
+ // previous call the positions that made true in later calls are not reflected in previous call's visited Because that later call's visited 
+ // was another copy of visited and the previous call's visited was another copy. Hence when we returned form a call to its previous call the 
+ // position made true was remained only just for that call and in previous call it was not reflected. And from previous call when we make 
+ // another way call, the path that has been visited also shown as not visited although it is visited. Hence even if without making false a 
+ // paticular cell it was behaving as false.Because in which call it was made true it remained only in that call. Not completely true.
+ // So other calls were seeing it as false.
+    int N = maze.size();
+     if(row >= N || col >= N || row < 0 || col < 0 || maze[row][col] == 0 || visited[row][col] == true){
+        return 0;
+    }
+    if(row == N-1 && col == N-1){
+        cout<< move << '\n';
+        return 1;
+    }
+
+    visited[row][col] = true;
+
+    int val1 = ratInMaze(maze, row+1, col, move+"D", visited);
+    int val2 = ratInMaze(maze, row, col+1, move+"R", visited);
+    int val3 = ratInMaze(maze, row-1, col, move+"U", visited);
+    int val4 = ratInMaze(maze, row, col-1, move+"L", visited);
+
+    visited[row][col] = false;
+    return val1 + val2 +val3 + val4;  
+}
+// Rat in maze in leetcode type design
+void helper(vector<vector<int>> &mat, int r, int c, string path, vector<string> &ans, vector<vector<bool>> &vis){
+    int n = mat.size();
+    if(r< 0 || c < 0 || r >= n || c >= n || mat[r][c] == 0 || vis[r][c] == true){
+        return;
+    }
+
+    if( r == n-1 && c == n-1){
+        ans.push_back(path);
+        return;
+    }
+
+    vis[r][c] = true;
+
+    helper(mat, r+1, c, path+"D", ans, vis);
+    helper(mat, r-1, c, path+"U", ans, vis);
+    helper(mat, r, c-1, path+"L", ans, vis);
+    helper(mat, r, c+1, path+"R", ans, vis);
+
+    vis[r][c] = false;
+}
+
+vector<string> findPath(vector<vector<int>> &mat){
+    int n = mat.size();
+
+    vector<string> ans;
+    string path = "";
+    vector<vector<bool>> vis(n, vector<bool>(n, false));
+    
+    helper(mat, 0, 0, path, ans, vis);
+
+    return ans;
+    
+}
+
 // Generate Parentheses --> Leetcode -22
 bool isSafeforClose(string str, int i, int n){
     int openPcount = 0, closePcount = 0;
@@ -284,7 +348,7 @@ int main(){
     wellParentheses(str, n, i);
 */
 
-    // Sudoku Solver
+/*    // Sudoku Solver
     int sudoku[9][9] = {{0, 0, 8, 0, 0, 0, 0, 0, 0},
                         {4, 9, 0, 1, 5, 7, 0, 0, 2},
                         {0, 0, 3, 0, 0, 4, 1, 9, 0},
@@ -296,6 +360,20 @@ int main(){
                         {8, 2, 7, 0, 0, 9, 0, 1, 3}  
                         };
     sudokuSolver(sudoku, 0, 0);
+*/
+
+    vector<vector<int>> maze = {{1, 0, 0, 0},
+                                {1, 1, 0, 1},
+                                {1, 1, 0, 0},
+                                {0, 1, 1, 1}};
+    vector<vector<bool>> visited(4, vector<bool>(4, false));
+    int ways =  ratInMaze(maze, 0, 0, "", visited);
+    cout << "Total ways = "<< ways<< endl;
+// Rat in maze in leetcode type design
+    vector<string> ans = findPath(maze);
+    for(string path : ans){
+        cout<< path << endl;
+    }
 
     return 0;
 }
