@@ -216,7 +216,7 @@ int main(){
     ll2.reverse();
     ll2.printList(); // 5->4->3->2->1->NULL
 
-    ll2.remove(2);
+    ll2.remove(2); // During this "remove" opeartion "reverse" operstion was commented
     ll2.printList(); // 1->2->3->5->NULL
 
     return 0;
