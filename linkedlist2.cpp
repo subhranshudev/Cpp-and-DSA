@@ -43,6 +43,16 @@ public:
         }
     }
 
+    void push_back(int val){
+        Node* newNode = new Node(val);
+
+        if(head == NULL){
+            head = tail = newNode;
+        }else{
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
     
     void pop_front(){
         if(head == NULL){
@@ -131,6 +141,65 @@ void PrintList(list<int> ll){
     cout<< '\n';
 }
 
+Node* splitAtMid(Node* head){
+    Node* slow = head;
+    Node* fast = head;
+    Node* prev = NULL;
+
+    while(fast != NULL && fast->next != NULL){
+        prev = slow;
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    if(prev != NULL){
+        prev->next = NULL;
+    }
+
+    return slow; // slow = rightHead
+}
+
+Node* merge(Node* left, Node* right){
+    List ans;
+    Node* i = left;
+    Node* j = right;
+
+    while(i != NULL && j != NULL){
+        if(i->data <= j->data){
+            ans.push_back(i->data);
+            i = i->next;
+        } else{
+            ans.push_back(j->data);
+            j = j->next;
+        }
+    }
+
+    while(i != NULL){
+        ans.push_back(i->data);
+        i = i->next;
+    }
+
+    while(j != NULL){
+        ans.push_back(j->data);
+        j = j->next;
+    }
+
+    return ans.head;
+}
+
+Node* mergeSort(Node* head){
+    if(head == NULL || head->next == NULL){
+        return head;
+    }
+
+    Node* rightHead = splitAtMid(head);
+
+    Node* left = mergeSort(head);
+    Node* right = mergeSort(rightHead);
+
+    return merge(left, right);
+}
+
 int main(){
 /*    List ll;
 
@@ -145,7 +214,7 @@ int main(){
     printList(ll.head);
 */
 
- // Using STL (list, iterator)-------->
+/* // Using STL (list, iterator)-------->
 
     list<int> ll;
     ll.push_front(2);
@@ -172,6 +241,20 @@ int main(){
     advance(itr, 2); // indexing starts from 0 ; advance() is a utility function used to modify an iterator by moving it forward or backward by a specifed number of positions
     my_ll.insert(itr, 3, 9); // insert(position, number of elements to insert(optional), value to insert)
     PrintList(my_ll);
+*/
+    
+    List ll2;
+
+    ll2.push_front(1);
+    ll2.push_front(2);
+    ll2.push_front(3);
+    ll2.push_front(4);
+    ll2.push_front(5);
+
+    printList(ll2.head);
+    ll2.head = mergeSort(ll2.head);
+    printList(ll2.head);
+
 
     return 0;
 }
