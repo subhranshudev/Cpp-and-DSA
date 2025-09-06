@@ -200,6 +200,48 @@ Node* mergeSort(Node* head){
     return merge(left, right);
 }
 
+Node* reverse(Node* head){
+    Node* prev = NULL;
+    Node* curr = head;
+    
+    while(curr != NULL){
+        Node* next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    return prev;
+}
+
+Node* zigZagLL(Node* head){
+    Node* rightHead = splitAtMid(head);
+    Node* revRightHead = reverse(rightHead);
+
+    Node* left = head;
+    Node* right = revRightHead;
+    Node* tail = right;
+    
+    while(left != NULL && right != NULL){
+        Node* nextLeft = left->next;
+        Node* nextRight = right->next;
+
+        left->next = right;
+        right->next = nextLeft;
+
+        // updation for next iteration
+        left = nextLeft;
+        tail = right;
+        right = nextRight;
+    }
+
+    if(right != NULL){  // For odd sized Linked List
+        tail->next = right;
+    }
+
+    return head;
+}
+
 int main(){
 /*    List ll;
 
@@ -242,7 +284,8 @@ int main(){
     my_ll.insert(itr, 3, 9); // insert(position, number of elements to insert(optional), value to insert)
     PrintList(my_ll);
 */
-    
+
+/*  Merge Sort
     List ll2;
 
     ll2.push_front(1);
@@ -254,6 +297,21 @@ int main(){
     printList(ll2.head);
     ll2.head = mergeSort(ll2.head);
     printList(ll2.head);
+*/
+
+    // Zig Zag Linked List
+    List ll3;
+    ll3.push_back(1);
+    ll3.push_back(2);
+    ll3.push_back(3);
+    ll3.push_back(4);
+   // ll3.push_back(5);
+    printList(ll3.head);
+
+    ll3.head = zigZagLL(ll3.head);
+    printList(ll3.head);
+
+    
 
 
     return 0;
