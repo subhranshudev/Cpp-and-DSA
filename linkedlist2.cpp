@@ -1,4 +1,6 @@
 #include<iostream>
+#include<list>
+#include<iterator>
 using namespace std;
 
 class Node{
@@ -121,9 +123,16 @@ void removeCycle(Node* head){
     }
 }
 
+void PrintList(list<int> ll){
+    list<int>::iterator itr;
+    for(itr = ll.begin(); itr != ll.end(); itr++){
+        cout<< (*itr)<< " ";
+    }
+    cout<< '\n';
+}
 
 int main(){
-    List ll;
+/*    List ll;
 
     ll.push_front(4);
     ll.push_front(3);
@@ -134,7 +143,35 @@ int main(){
 
     removeCycle(ll.head);
     printList(ll.head);
+*/
 
+ // Using STL (list, iterator)-------->
+
+    list<int> ll;
+    ll.push_front(2);
+    ll.push_front(1);
+
+    ll.push_back(3);
+    ll.push_back(4);
+
+    PrintList(ll);
+    cout<< ll.size()<< endl; 
+    
+    cout<< "head = "<< ll.front()<< endl;
+    cout<< "tail = "<< ll.back() << endl;
+
+    ll.pop_front();
+    PrintList(ll);
+
+    ll.pop_back();
+    PrintList(ll);
+
+    list<int> my_ll = {5, 6, 7, 8};
+    PrintList(my_ll);
+    list<int>::iterator itr = my_ll.begin();
+    advance(itr, 2); // indexing starts from 0 ; advance() is a utility function used to modify an iterator by moving it forward or backward by a specifed number of positions
+    my_ll.insert(itr, 3, 9); // insert(position, number of elements to insert(optional), value to insert)
+    PrintList(my_ll);
 
     return 0;
 }
