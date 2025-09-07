@@ -294,6 +294,35 @@ public:
 
 };
 
+void deleteNafterM(Node* head, int M, int N){   // Leetcode- 1474(premium)Level-easy
+    Node* temp = head;
+    Node* prev = NULL;
+    while(temp != NULL){
+        int m = M;
+        int n = N;
+
+        while(m != 0){
+            if(temp == NULL){
+                return;
+            }
+            prev = temp;
+            temp = temp->next;
+            m--;
+        }
+        while(n != 0){
+            if(temp == NULL){
+                return;
+            }
+            prev->next = temp->next;
+            temp->next = NULL;
+            delete temp;
+            temp = prev->next;
+            n--;
+        }
+    }
+
+}
+
 int main(){
 /*    List ll;
 
@@ -364,7 +393,7 @@ int main(){
     printList(ll3.head);
 */
     
-    // Doubly Linked List
+/*    // Doubly Linked List
     DoublyList dbll;
     dbll.push_front(5);
     dbll.push_front(4);
@@ -376,7 +405,24 @@ int main(){
 
     dbll.pop_front();
     dbll.printList();
-    
+*/
 
+    List ll4;
+    ll4.push_back(1);
+    ll4.push_back(2);
+    ll4.push_back(3);
+    ll4.push_back(4);
+    ll4.push_back(5);
+    ll4.push_back(6);
+    ll4.push_back(7);
+    ll4.push_back(8);
+    ll4.push_back(9);
+    ll4.push_back(10);
+    printList(ll4.head);
+
+    int M = 3, N = 2;
+    deleteNafterM(ll4.head, M, N);
+    printList(ll4.head);
+    
     return 0;
 }
