@@ -194,8 +194,8 @@ Node* mergeSort(Node* head){
 
     Node* rightHead = splitAtMid(head);
 
-    Node* left = mergeSort(head);
-    Node* right = mergeSort(rightHead);
+    Node* left = mergeSort(head);   // left = head of left sorted LL
+    Node* right = mergeSort(rightHead); // right = head of right sorted LL
 
     return merge(left, right);
 }
@@ -242,6 +242,58 @@ Node* zigZagLL(Node* head){
     return head;
 }
 
+class DoublyNode{
+public:
+    int data;
+    DoublyNode* next;
+    DoublyNode* prev;
+    DoublyNode(int val){
+        data = val;
+        next = prev = NULL;
+    }
+};
+
+class DoublyList{
+public:
+    DoublyNode* head;
+    DoublyNode* tail;
+    DoublyList(){
+        head = tail = NULL;
+    }
+
+    void push_front(int val){
+       DoublyNode* newNode = new DoublyNode(val);
+       
+       if(head == NULL){
+        head = tail = newNode;
+       }else {
+        newNode->next = head;
+        head->prev = newNode;
+        head = newNode;
+       }
+    }
+
+    void pop_front(){
+        DoublyNode* temp = head;
+        head = head->next;
+        if(head != NULL){
+            head->prev = NULL;
+        }
+        temp->next = NULL;
+        delete temp;
+    }
+
+    void printList(){
+        DoublyNode* temp = head;
+        while(temp != NULL){
+            cout<< temp->data<< " <=> ";
+            temp = temp->next;
+        }
+        cout<< "NULL \n";
+    }
+
+};
+
 int main(){
 /*    List ll;
 
@@ -285,7 +337,7 @@ int main(){
     PrintList(my_ll);
 */
 
-/*  Merge Sort
+/*  //Merge Sort
     List ll2;
 
     ll2.push_front(1);
@@ -299,20 +351,32 @@ int main(){
     printList(ll2.head);
 */
 
-    // Zig Zag Linked List
+/*    // Zig Zag Linked List
     List ll3;
     ll3.push_back(1);
     ll3.push_back(2);
     ll3.push_back(3);
     ll3.push_back(4);
-   // ll3.push_back(5);
+    ll3.push_back(5);
     printList(ll3.head);
 
     ll3.head = zigZagLL(ll3.head);
     printList(ll3.head);
-
+*/
     
+    // Doubly Linked List
+    DoublyList dbll;
+    dbll.push_front(5);
+    dbll.push_front(4);
+    dbll.push_front(3);
+    dbll.push_front(2);
+    dbll.push_front(1);
 
+    dbll.printList();
+
+    dbll.pop_front();
+    dbll.printList();
+    
 
     return 0;
 }
