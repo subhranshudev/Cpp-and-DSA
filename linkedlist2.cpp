@@ -323,6 +323,57 @@ void deleteNafterM(Node* head, int M, int N){   // Leetcode- 1474(premium)Level-
 
 }
 
+Node* swap(Node* head, int x, int y){   // Node done yet
+    Node* tempA = head;
+    Node* tempB = head;
+    Node* prevA = NULL;
+    Node* prevB = NULL;
+
+    while(tempA->data != x){
+        prevA = tempA;
+        tempA = tempA->next;
+    }
+    while(tempB->data != y){
+        prevB = tempB;
+        tempB = tempB->next;
+    }
+
+    Node* nextA = tempA->next;
+    Node* nextB = tempB->next;
+
+    if(prevA != NULL) prevA->next = tempB;
+    tempB->next = nextA;
+    if(prevB != NULL) prevB->next = tempA;
+    tempA->next = nextB;
+
+    if(prevA == NULL){
+        head = tempB;
+    }
+    if(prevB == NULL){
+        head = tempA;
+    }
+    return head;
+}
+
+Node* oddEvenLL(Node* head){
+    List ans;
+    Node* temp = head;
+    while(temp != NULL){
+        if(temp->data %2 == 0){
+            ans.push_back(temp->data);
+        }
+        temp = temp->next;
+    }
+    temp = head;
+    while(temp != NULL){
+        if(temp->data %2 != 0){
+            ans.push_back(temp->data);
+        }
+        temp = temp->next;
+    }
+    return ans.head;
+}
+
 int main(){
 /*    List ll;
 
@@ -415,14 +466,30 @@ int main(){
     ll4.push_back(5);
     ll4.push_back(6);
     ll4.push_back(7);
-    ll4.push_back(8);
-    ll4.push_back(9);
-    ll4.push_back(10);
+    // ll4.push_back(8);
+    // ll4.push_back(9);
+    // ll4.push_back(10);
     printList(ll4.head);
 
-    int M = 3, N = 2;
-    deleteNafterM(ll4.head, M, N);
-    printList(ll4.head);
-    
+    // int M = 3, N = 2;
+    // deleteNafterM(ll4.head, M, N);
+    // printList(ll4.head);
+
+    // int x = 2, y = 3;
+    // ll4.head = swap(ll4.head, x, y);
+    // printList(ll4.head);
+
+    List ll5;
+    ll5.push_back(8);
+    ll5.push_back(12);
+    ll5.push_back(10);
+    ll5.push_back(5);
+    ll5.push_back(4);
+    ll5.push_back(1);
+    ll5.push_back(6);
+    printList(ll5.head);
+    ll5.head = oddEvenLL(ll5.head);
+    printList(ll5.head);
+
     return 0;
 }
