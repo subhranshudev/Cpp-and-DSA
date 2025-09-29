@@ -66,6 +66,39 @@ public:
     }
 };
 
+// create stack using array
+class StackArr{
+    int arr[10];
+    int topItr = -1;
+public:
+    void push(int val){
+        topItr++;
+        arr[topItr] = val;
+    }
+
+    void pop(){
+        if(topItr == -1){
+            cout<< "stack is empty \n";
+            return;
+        }
+        topItr = topItr - 1;
+    }
+
+    int top(){
+        if(topItr == -1){
+            cout<< "stack is empty \n";
+            return -1;
+        }
+        return arr[topItr];
+    }
+
+    int size(){
+        return topItr+1;
+    }
+    
+};
+
+// create stack using Linked List(stl list)
 template<class T>
 class tempStackll{
     list<T> ll;
@@ -86,6 +119,53 @@ public:
         return ll.size() == 0;
     }
 };
+
+// create stack using Linked List(custom linked list)
+template<class T>
+class Node{
+public:
+    T data;
+    Node* next;
+    Node(T val){
+        data = val;
+        next = NULL;
+    }
+};
+template<class T>
+class tempStackll2{
+    Node<T>* head;
+public:
+    tempStackll2(){
+        head = NULL;
+    }
+    void push(T val){
+        // push_front
+        Node<T>* newNode = new Node<T>(val);
+        if(head == NULL){
+            head = newNode;
+        } else{
+            newNode->next = head;
+            head = newNode;
+        }
+    }
+
+    void pop(){
+        // pop_front
+        Node<T>* temp = head;
+        head = head->next;
+        temp->next = NULL;
+        delete temp;
+    }
+
+    T top(){
+        return head->data;
+    }
+
+    bool isEmpty(){
+        return head == NULL;
+    }
+};
+
 
 void pushAtBottom(stack<int> &s, int val){  //TC = O(n)
     if(s.empty()){
@@ -348,6 +428,25 @@ int main(){
     }
 */
 
+    // Stack implementation using array
+    StackArr st;
+    st.push(3);
+    st.push(2);
+    st.push(1);
+    while(st.size() != 0){
+        cout<< st.top() <<' ';
+        st.pop();
+    }
+    cout<< endl;
+    
+    st.push(88);
+    st.push(99);
+    while(st.size() != 0){
+        cout<< st.top() <<' ';
+        st.pop();
+    }
+
+
 /*  // stack implementation using Linked List
     tempStackll<int> s2;
     s2.push(3);
@@ -359,6 +458,17 @@ int main(){
         s2.pop();
     }
 */
+
+    // Stack implementation using Linked List(custom list)
+    tempStackll2<int> s;
+    s.push(3);
+    s.push(2);
+    s.push(1);
+
+    while(!s.isEmpty()){
+        cout<< s.top()<< " ";
+        s.pop();
+    }
 
 /*  // Push at bottom of stack
     stack<int> s;
@@ -411,11 +521,11 @@ int main(){
     cout<< isDuplicateParenthesis(str2)<< endl;
 */
 
-    vector<int> heights = {2, 1, 5, 6, 2, 3};
+/*    vector<int> heights = {2, 1, 5, 6, 2, 3};
     vector<int> heights2 = {2, 1, 5, 6, 7, 3};   
     cout<< "max area = "<< maxAreaHistogram(heights)<< endl;
     cout<< "max area = "<< maxAreaHistogram(heights2)<< endl;
-
+*/
 
     return 0;
 }
