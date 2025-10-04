@@ -47,7 +47,7 @@ int fractionalKnapsack(vector<int> value, vector<int> weight, int w){   // TC = 
 
     sort(items.begin(), items.end(), compare2);
 
-    int maxValue = 0;
+    double maxValue = 0;
     for(int i = 0; i< n; i++){
         double itemValue = items[i].first;
         int itemWeight = items[i].second;
@@ -68,6 +68,19 @@ int fractionalKnapsack(vector<int> value, vector<int> weight, int w){   // TC = 
 
     return maxValue;
 
+}
+
+int minAbsoluteDifferenceSum(vector<int> v1, vector<int> v2){
+    sort(v1.begin(), v1.end());
+    sort(v2.begin(), v2.end());
+    int n = v1.size();
+    int absDiffSum = 0;
+    for(int i = 0; i< n; i++){
+        cout<< "("<< v1[i]<< ","<< v2[i]<< ")"<< endl;
+        absDiffSum += abs(v1[i]-v2[i]);
+    }
+
+    return absDiffSum;
 }
 
 int main(){
@@ -97,11 +110,17 @@ int main(){
     }
 */
 
-    // Fractional Knapsack
+/*    // Fractional Knapsack
     vector<int> value = {60, 100, 120};
     vector<int> weight = {10, 20, 30};
     int w = 50;
     cout<< "Max Value = "<< fractionalKnapsack(value, weight, w);
+*/
+
+    // Min absolute Difference pairs  
+    vector<int> A = {1, 2, 3};
+    vector<int> B = {2, 1, 3};
+    cout<< "Min abs diff sum = " << minAbsoluteDifferenceSum(A, B);
 
     return 0;
 }
