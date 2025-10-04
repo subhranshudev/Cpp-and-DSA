@@ -83,6 +83,70 @@ int minAbsoluteDifferenceSum(vector<int> v1, vector<int> v2){
     return absDiffSum;
 }
 
+bool compare3(pair<int, int> p1, pair<int, int>p2){
+    return p1.second < p2.second;   // ascending
+}
+
+int maxChainLength(vector<pair<int, int>> p){
+    int n = p.size();
+    sort(p.begin(), p.end(), compare3);
+
+    cout<< "Pair: "<< p[0].first<< ","<< p[0].second<< endl;
+    int currEnd = p[0].second;
+    int length = 1;
+   
+    for(int i = 1; i< n; i++){
+        if(currEnd < p[i].first){
+            cout<< "Pair: "<< p[i].first<<","<< p[i].second<<endl;
+            length++;
+            currEnd = p[i].second;
+        }
+    }
+
+    return length;
+}
+
+int getMinChange(vector<int> coins, int V){  //  TC = O(n)
+    int noOfCoins = 0;
+    int n = coins.size();
+    for(int i = n-1; i>= 0 && V > 0; i--){
+        int currCoinVal = coins[i];
+        if(V >= currCoinVal){
+            noOfCoins += V/currCoinVal;
+            V = V % currCoinVal;
+        }
+    }
+
+    return noOfCoins;
+}
+
+bool compare4(pair<int, int> job1, pair<int, int> job2){
+    return job1.second > job2.second;
+}
+
+int maxProfit(vector<pair<int, int>> jobs){
+    // first-> deadline , second-> profit
+    int n = jobs.size();
+    sort(jobs.begin(), jobs.end(), compare4);
+
+    int profit = jobs[0].second;
+
+    int safeDeadline = 2;
+
+    for(int i = 1; i< n; i++){
+        int currDeadline = jobs[i].first;
+        int currProfit = jobs[i].second;
+
+        if(currDeadline >= safeDeadline){
+            // Do that job
+            safeDeadline++;
+            profit += currProfit;
+        }
+    }
+
+    return profit;
+}
+
 int main(){
 /*    // Activity Selection
     vector<int> start = {1, 3, 0, 5, 8, 5};
@@ -117,10 +181,39 @@ int main(){
     cout<< "Max Value = "<< fractionalKnapsack(value, weight, w);
 */
 
-    // Min absolute Difference pairs  
+/*    // Min absolute Difference pairs  
     vector<int> A = {1, 2, 3};
     vector<int> B = {2, 1, 3};
     cout<< "Min abs diff sum = " << minAbsoluteDifferenceSum(A, B);
+*/
 
+/*    // Max chain length
+    int n = 5;
+    vector<pair<int, int>> pairs(n , make_pair(0, 0));
+    pairs[0] = make_pair(5, 24);
+    pairs[1] = make_pair(39, 60);
+    pairs[2] = make_pair(5, 28);
+    pairs[3] = make_pair(27, 40);
+    pairs[4] = make_pair(50, 90);
+
+    cout<< "Max Chain length = "<< maxChainLength(pairs)<< endl;
+*/
+
+/*    // Indian Coins; Get Min Change
+    vector<int> coins = {1, 2, 5, 10, 20, 50, 100, 500, 2000};
+    int V = 1099;
+    cout<<"Min Change = " <<getMinChange(coins, V)<< endl;
+*/
+
+    // Job Sequencing Problem
+    vector<pair<int, int>> jobs(4, make_pair(0, 0));
+    // first-> deadline , second-> profit
+    jobs[0] = make_pair(4, 20);
+    jobs[1] = make_pair(1, 10);
+    jobs[2] = make_pair(1, 40);
+    jobs[3] = make_pair(1, 30);
+
+    cout<<"Max Profit = "<< maxProfit(jobs)<< endl;
+ 
     return 0;
 }
