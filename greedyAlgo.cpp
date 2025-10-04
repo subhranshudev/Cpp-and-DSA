@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<string>
 using namespace std;
 
 int activitySelection(vector<int> start, vector<int> end){
@@ -205,7 +206,7 @@ int main(){
     cout<<"Min Change = " <<getMinChange(coins, V)<< endl;
 */
 
-    // Job Sequencing Problem
+/*    // Job Sequencing Problem
     vector<pair<int, int>> jobs(4, make_pair(0, 0));
     // first-> deadline , second-> profit
     jobs[0] = make_pair(4, 20);
@@ -214,6 +215,40 @@ int main(){
     jobs[3] = make_pair(1, 30);
 
     cout<<"Max Profit = "<< maxProfit(jobs)<< endl;
- 
+*/ 
+
+ /* // Random; verifying , clearing doubts
+    // cout<< "to stirng = "<< to_string(97-1);
+    char ch = 18 + 'a';
+    cout<< ch<< endl;
+    // string ans = "def";
+    // ans = ch + ans;
+    // cout<< ans;
+*/
+      // Smallest string with given numeric value --> LC-1663
+        int k = 73, n = 5;
+        k = k-(n-1);  // numeric value for last position if all other places are filled with 'a'
+        char ch;
+        string ans = "";
+        while(n > 0){
+            if(k == 0){
+                ch = 'a';
+                ans = ch+ans;
+                n--;
+            }else if(k> 0 && k <= 26){
+                ch = (k-1) + 'a';
+                ans = ch + ans;
+                k = 0;
+                n--;
+            } else{
+                ch = 'z';
+                ans = ch + ans;
+                k = k-25; // k = k-26+1
+                n--;
+            }
+        }
+
+        cout<< "ans string = "<< ans<< endl;
+
     return 0;
 }
