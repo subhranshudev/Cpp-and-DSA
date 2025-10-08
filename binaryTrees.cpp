@@ -93,17 +93,53 @@ void levelorder(Node* root){    // TC = O(n), SC = O(n)
     }
 }
 
-int main(){
-    // Build Tree from Preorder --> Time Complexity = O(n); n = size of preroder
-    vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
-    Node* root = buildTree(nodes);
-    cout<< root->data<< endl;
+int height(Node* root){
+    if(root == NULL){
+        return 0;
+    }
 
-    // Tree Traversal
+    int leftHeight = height(root->left);
+    int rightHeight = height(root->right);
+
+    int currHeight = max(leftHeight, rightHeight) + 1;
+    return currHeight;
+}
+
+static int totalCount = 0;
+int nodeCount(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+
+    int leftCount = nodeCount(root->left);
+    int rightCount = nodeCount(root->right);
+
+    totalCount = leftCount + rightCount + 1;
+    return totalCount;
+}
+
+int main(){
+   // Build Tree from Preorder --> Time Complexity = O(n); n = size of preroder
+    vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
+    // Node* root = buildTree(nodes);
+    // cout<< root->data<< endl;
+
+
+/*    // Tree Traversal
     preorder(root);
     inorder(root);
     postorder(root);
     levelorder(root);
+*/
+
+    // Height of a Tree
+    vector<int> nodes2 = {1, 2, 4, -1, -1, 5, -1, 6, -1, 7, -1, -1, 3, -1, -1};
+    Node* root2 = buildTree(nodes2);
+    cout<< root2->data<< endl;
+    cout<< "Tree Height = " << height(root2);
+
+    // Count of Nodes
+    cout << "Total Nodes = "<< nodeCount(root2)<< endl;
 
     return 0;
 }
