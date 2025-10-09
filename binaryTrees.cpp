@@ -118,16 +118,32 @@ int nodeCount(Node* root){
     return totalCount;
 }
 
-int diameter1(Node* root){  // O(n^2)
+int diameter1(Node* root){  // TC = O(n^2)
     if(root == NULL){
         return 0;
     }
 
-    int currHeight = height(root->left) + height(root->right) + 1;  // O(n)
+    int currDiameter = height(root->left) + height(root->right) + 1;  // O(n)
     int leftDiameter = diameter1(root->left);
     int rightDiameter = diameter1(root->right);
 
-    return max(currHeight, max(leftDiameter, rightDiameter));
+    return max(currDiameter, max(leftDiameter, rightDiameter));
+}
+
+pair<int, int> diameter2(Node* root){   // TC = O(n)
+    if(root == NULL){
+        return make_pair(0, 0);
+    }
+
+    // pair(diameter, height)
+    pair<int, int> leftInfo = diameter2(root->left);
+    pair<int, int> rightInfo = diameter2(root->right);
+
+    int currDiameter = leftInfo.second + rightInfo.second + 1; // leftHeight + rightHeight + 1
+    int finalDiameter = max(currDiameter, max(leftInfo.first, rightInfo.second)); // max(currDiameter, max(leftDiameter, rightDiameter));
+    int finalHeight = max(leftInfo.second, rightInfo.second) + 1; // max(leftHeight, rightHeight) + 1
+
+    return make_pair(finalDiameter, finalHeight);
 }
 
 int main(){
@@ -155,7 +171,8 @@ int main(){
     //cout << "Total Nodes = "<< nodeCount(root2)<< endl;
 
     // Diameter of Tree
-    cout<< "Diameter of tree = " << diameter1(root)<< endl;
+    cout<< "Diameter of tree 1 = " << diameter1(root)<< endl;   // TC = O(n^2)
+    cout<< "Diameter of tree 2 = " << diameter2(root).first << endl;    // pair(diameter, height); TC = O(n)
 
     return 0;
 }
