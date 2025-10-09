@@ -140,7 +140,7 @@ pair<int, int> diameter2(Node* root){   // TC = O(n)
     pair<int, int> rightInfo = diameter2(root->right);
 
     int currDiameter = leftInfo.second + rightInfo.second + 1; // leftHeight + rightHeight + 1
-    int finalDiameter = max(currDiameter, max(leftInfo.first, rightInfo.second)); // max(currDiameter, max(leftDiameter, rightDiameter));
+    int finalDiameter = max(currDiameter, max(leftInfo.first, rightInfo.first)); // max(currDiameter, max(leftDiameter, rightDiameter));
     int finalHeight = max(leftInfo.second, rightInfo.second) + 1; // max(leftHeight, rightHeight) + 1
 
     return make_pair(finalDiameter, finalHeight);
