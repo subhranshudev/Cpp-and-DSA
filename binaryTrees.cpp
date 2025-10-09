@@ -118,10 +118,22 @@ int nodeCount(Node* root){
     return totalCount;
 }
 
+int diameter1(Node* root){  // O(n^2)
+    if(root == NULL){
+        return 0;
+    }
+
+    int currHeight = height(root->left) + height(root->right) + 1;  // O(n)
+    int leftDiameter = diameter1(root->left);
+    int rightDiameter = diameter1(root->right);
+
+    return max(currHeight, max(leftDiameter, rightDiameter));
+}
+
 int main(){
    // Build Tree from Preorder --> Time Complexity = O(n); n = size of preroder
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
-    // Node* root = buildTree(nodes);
+    Node* root = buildTree(nodes);
     // cout<< root->data<< endl;
 
 
@@ -132,14 +144,18 @@ int main(){
     levelorder(root);
 */
 
-    // Height of a Tree
+/*    // Height of a Tree
     vector<int> nodes2 = {1, 2, 4, -1, -1, 5, -1, 6, -1, 7, -1, -1, 3, -1, -1};
     Node* root2 = buildTree(nodes2);
     cout<< root2->data<< endl;
     cout<< "Tree Height = " << height(root2);
+*/
 
     // Count of Nodes
-    cout << "Total Nodes = "<< nodeCount(root2)<< endl;
+    //cout << "Total Nodes = "<< nodeCount(root2)<< endl;
+
+    // Diameter of Tree
+    cout<< "Diameter of tree = " << diameter1(root)<< endl;
 
     return 0;
 }
