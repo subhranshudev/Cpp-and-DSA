@@ -293,6 +293,37 @@ Node* LCA2(Node* root, int n1, int n2){
     return leftLCA == NULL ? rightLCA : leftLCA;
 }
 
+int dist(Node* root, int n){
+    if(root == NULL){
+        return -1;
+    }
+
+    if(root->data == n){    // When we get the node which we were searching for using the value, at that time distance will be zero because we are currently present on that node. Then we return towards LCA and increment distance by 1
+        return 0;
+    }
+
+    int leftDist = dist(root->left, n);
+    if(leftDist != -1){ // When we get the required node in left, return towards LCA and increment distance by 1
+        return leftDist + 1;
+    }
+
+    // If we do not get required node in left, then search in right
+    int rightDist = dist(root->right, n);
+    if(rightDist != -1){    // When we get the required node in right, return towards LCA and increment distance by 1
+        return rightDist + 1;
+    }
+
+    return -1;  // If we do not find required node on both sides return -1
+}
+int minDistance(Node* root, int n1, int n2){    // TC = O(n)
+    Node* lca = LCA2(root, n1, n2); // O(n)
+
+    int dist1 = dist(lca, n1);  // O(n)
+    int dist2 = dist(lca, n2);  // O(n)
+
+    return dist1 + dist2;
+}
+
 int main(){
    // Build Tree from Preorder --> Time Complexity = O(n); n = size of preroder
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
@@ -351,10 +382,15 @@ int main(){
     // k th level of tree
     // kThLevel(root, 2);
 
-    // Lowest Common Ancestor --> TC = O(n), SC = O(n)
+/*    // Lowest Common Ancestor --> TC = O(n), SC = O(n)
     int n1 = 4, n2 = 6;
     cout<< "LCA = " << LCA(root, n1, n2)<< endl;
     cout<< "LCA2 = " << LCA2(root, n1, n2)->data<< endl;
+*/
+
+    // Minimum distance between two nodes
+    int n1 = 5, n2 = 3;
+    cout<< "Min distance = "<< minDistance(root, n1, n2);
 
 
     return 0;
