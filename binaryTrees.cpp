@@ -218,6 +218,23 @@ void topView(Node* root){
     cout<< endl;
 }
 
+void kThHelper(Node* root, int k, int level){   //O(n)
+    if(root == NULL){
+        return;
+    }
+
+    if(level == k){
+        cout<< root->data<< " ";
+        return;
+    }
+
+    kThHelper(root->left, k, level+1); // Don't do level++ 
+    kThHelper(root->right, k, level+1);
+}
+void kThLevel(Node* root, int k){   // O(n)-> because of helper function
+    kThHelper(root, k, 1);
+}
+
 int main(){
    // Build Tree from Preorder --> Time Complexity = O(n); n = size of preroder
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
@@ -271,7 +288,10 @@ int main(){
 */
 
     // Top view of tree
-    topView(root);
+    //topView(root);
+
+    // k th level of tree
+    kThLevel(root, 2);
 
 
     return 0;
