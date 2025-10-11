@@ -1,6 +1,8 @@
 #include<iostream>
 #include<vector>
 #include<queue>
+#include<map>
+#include<string>
 using namespace std;
 
 // Build Tree from Preorder
@@ -183,6 +185,39 @@ bool isSubtree(Node* root, Node* subRoot){
     return true;
 }
 
+void topView(Node* root){
+    queue<pair<Node*, int>> q;
+    map<int, int> m;
+
+    q.push(make_pair(root, 0));
+    while(!q.empty()){
+        pair<Node*, int> curr = q.front();
+        q.pop();
+        
+        Node* currNode = curr.first;
+        int currHD = curr.second;
+
+        if(m.count(currHD) == 0){
+            m[currHD] = currNode->data;
+        }
+
+        if(currNode->left != NULL){
+            pair<Node* , int> left = make_pair(currNode->left, currHD-1);
+            q.push(left);
+        }
+
+        if(currNode->right != NULL){
+            pair<Node*, int> right = make_pair(currNode->right, currHD + 1);
+            q.push(right);
+        }
+    }
+
+    for(auto it: m){    // In map iteration always occurs from lowest key to highest key
+        cout<< it.second<< " ";
+    }
+    cout<< endl;
+}
+
 int main(){
    // Build Tree from Preorder --> Time Complexity = O(n); n = size of preroder
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
@@ -212,11 +247,32 @@ int main(){
     cout<< "Diameter of tree 2 = " << diameter2(root).first << endl;    // pair(diameter, height); TC = O(n)
 */
 
-    // Subtree of another tree
+/*    // Subtree of another tree
     Node* subRoot = new Node(2);
     subRoot->left = new Node(4);
     subRoot->right = new Node(5);
     cout<< isSubtree(root, subRoot)<< endl;
+*/
+
+/*    // map
+    map<int, string> m;
+    m[101] = "Rahul";
+    m[110] = "neha";
+    m[131] = "Rahul";
+
+    m[101] = "Sekhar";
+
+    cout<< m[101]<< endl;
+    cout<< m.count(100) << endl;
+
+    for(auto it: m){
+        cout<< "key: " << it.first<< " -> Value: " << it.second<< endl;
+    }
+*/
+
+    // Top view of tree
+    topView(root);
+
 
     return 0;
 }
