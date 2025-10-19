@@ -324,6 +324,51 @@ int minDistance(Node* root, int n1, int n2){    // TC = O(n)
     return dist1 + dist2;
 }
 
+int kThAncestor(Node* root, int node, int k){
+    if(root == NULL){
+        return -1;
+    }
+
+    if(root->data == node){
+        return 0;
+    }
+
+    int leftDistance = kThAncestor(root->left, node, k);
+    int rightDistance = kThAncestor(root->right, node, k);
+    
+    if(leftDistance == -1 && rightDistance == -1){
+        return -1;
+    }
+
+    int validValue = leftDistance == -1 ? rightDistance : leftDistance;
+    if((validValue + 1) == k){
+        cout<< k<< "th Ancestor = " << root->data<< endl;
+    }
+
+    return validValue + 1;
+}
+
+int transform(Node* root){
+    if(root == NULL){
+        return 0;
+    }
+
+    int leftOld = transform(root->left);
+    int rightOld = transform(root->right);
+    int currOld = root->data;
+
+    root->data = leftOld + rightOld;
+    if(root->left != NULL){
+        root->data += root->left->data;
+    }
+
+    if(root->right != NULL){
+        root->data += root->right->data;
+    }
+
+    return currOld;
+}
+
 int main(){
    // Build Tree from Preorder --> Time Complexity = O(n); n = size of preroder
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
@@ -388,10 +433,18 @@ int main(){
     cout<< "LCA2 = " << LCA2(root, n1, n2)->data<< endl;
 */
 
-    // Minimum distance between two nodes
+/*    // Minimum distance between two nodes
     int n1 = 5, n2 = 3;
     cout<< "Min distance = "<< minDistance(root, n1, n2);
+*/
 
+/*    int node = 6, k = 1;
+    kThAncestor(root, node, k);
+*/
 
+    // Transform to Sum Tree
+    transform(root);
+    levelorder(root);   // Print the tree after transformation
+    
     return 0;
 }
