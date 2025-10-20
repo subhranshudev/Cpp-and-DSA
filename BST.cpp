@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 using namespace std;
 
 class Node{
@@ -115,6 +116,34 @@ void printINRange(Node* root, int start, int end){
     }
 }
 
+void print(vector<int> ans){
+    for(int i = 0; i< ans.size(); i++){
+        cout<< ans[i]<< " ";
+    }
+    cout<< endl;
+}
+
+void pathHelper(Node* root, vector<int> &path){
+    if(root == NULL){
+        return;
+    }
+
+    path.push_back(root->data);
+    pathHelper(root->left, path);
+    pathHelper(root->right, path);
+
+    if(root->left == NULL && root->right == NULL){
+        print(path);
+    }
+
+    path.pop_back();   
+}
+
+void rootToLeaf(Node* root){
+    vector<int> path;
+    pathHelper(root, path);
+}
+
 int main(){
     //Build BST
     int arr[] = {5, 1, 3, 4, 2, 7};
@@ -126,12 +155,16 @@ int main(){
     // Search in BST
     //cout<< search(root, 6)<< endl;
 
-    // Delete Node in BST
-    // deleteNode(root, 5);
-    // inorder(root);
+/*    // Delete Node in BST
+    deleteNode(root, 5);
+    inorder(root);
+*/
 
     // Print in range
-    printINRange(root, 5, 12);
+    // printINRange(root, 5, 12);
+
+    // Root to leaf path
+    rootToLeaf(root);
 
 
     return 0;
