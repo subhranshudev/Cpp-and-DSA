@@ -100,6 +100,21 @@ Node* deleteNode(Node* root, int val){
     return root;
 }
 
+void printINRange(Node* root, int start, int end){
+    if(root == NULL){
+        return;
+    }
+    if(start <= root->data && root->data <= end){
+        cout<< root->data << " ";
+        printINRange(root->left, start, end);
+        printINRange(root->right, start, end);
+    }else if(root->data < start){
+        printINRange(root->right, start, end);
+    }else{
+        printINRange(root->left, start, end);
+    }
+}
+
 int main(){
     //Build BST
     int arr[] = {5, 1, 3, 4, 2, 7};
@@ -112,9 +127,11 @@ int main(){
     //cout<< search(root, 6)<< endl;
 
     // Delete Node in BST
-    deleteNode(root, 5);
-    inorder(root);
+    // deleteNode(root, 5);
+    // inorder(root);
 
+    // Print in range
+    printINRange(root, 5, 12);
 
 
     return 0;
