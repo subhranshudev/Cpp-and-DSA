@@ -126,6 +126,23 @@ void nearestCars(vector<pair<int, int>> position, int k){
     }
 }
 
+int connectRopes(vector<int> ropes){
+    priority_queue<int, vector<int>, greater<int>> pq(ropes.begin(), ropes.end());
+    int minCost = 0;
+    while(pq.size() > 1){
+        int min1 = pq.top();
+        pq.pop();
+        int min2 = pq.top();
+        pq.pop();
+
+        minCost += min1 + min2;
+        pq.push(min1 + min2);
+    }
+
+    cout<< "Minimum cost = " << minCost<< endl;
+    return minCost;
+}
+
 int main(){
 /*    priority_queue<int> pq; // By default max heap implemented
     pq.push(5);
@@ -183,7 +200,7 @@ int main(){
     }
 */
 
-    // K nearby cars
+/*    // K nearby cars
     vector<pair<int, int>> positions;
     positions.push_back(make_pair(3, 3));
     positions.push_back(make_pair(5, -1));
@@ -191,6 +208,11 @@ int main(){
 
     int k = 2;
     nearestCars(positions, k);
+*/
+
+    // Connect N ropes
+    vector<int> ropes = {4, 3, 2, 6};
+    connectRopes(ropes);
 
 
     return 0;
