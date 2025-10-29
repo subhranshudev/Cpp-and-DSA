@@ -1,5 +1,6 @@
 #include<iostream>
 #include<queue>
+#include<vector>
 #include<string>
 using namespace std;
 
@@ -143,6 +144,63 @@ int connectRopes(vector<int> ropes){
     return minCost;
 }
 
+class Row{
+public:
+    int count;  // soldier count
+    int idx;    // Index of row
+
+    Row(int count, int idx){
+        this->count = count;
+        this->idx = idx;
+    }
+
+    bool operator < (const Row &obj) const {
+        if(this->count == obj.count){
+            return this->idx > obj.idx; // if soldier count become same then compare w.r.t idx
+        }
+        return this->count > obj.count;
+    }
+};
+void weakestSoldier(vector<vector<int>> matrix, int k){
+    vector<Row> rows;
+
+    for(int i = 0; i< matrix.size(); i++){  // visit each row
+        int count = 0;
+        for(int j = 0; j < matrix[i].size() && matrix[i][j] == 1; j++){ // visit every element of the row, if element == 1 increase the soldier count
+            count++;
+        }
+        rows.push_back(Row(count, i));
+    }
+
+    priority_queue<Row> pq(rows.begin(), rows.end());
+
+    for(int i = 0; i < k; i++){
+        cout<< "Row "<< pq.top().idx<< endl;
+        pq.pop();
+    }
+}
+
+void slidingWindow(vector<int> arr, int k){
+    priority_queue<pair<int, int>> pq;
+
+    // 1st window
+    for(int i = 0; i< k; i++){
+        pq.push(make_pair(arr[i], i));
+    }
+
+    cout<< "output: "<< pq.top().first<< " ";
+    
+    for(int i = k; i< arr.size(); i++){
+        while(!pq.empty() && pq.top().second <= (i-k)){
+            pq.pop();
+        }
+
+        pq.push(make_pair(arr[i], i));
+        cout<< pq.top().first<< " ";
+    }
+    cout<< endl;
+}
+
 int main(){
 /*    priority_queue<int> pq; // By default max heap implemented
     pq.push(5);
@@ -210,9 +268,25 @@ int main(){
     nearestCars(positions, k);
 */
 
-    // Connect N ropes
+/*    // Connect N ropes
     vector<int> ropes = {4, 3, 2, 6};
     connectRopes(ropes);
+*/
+
+   // Weakest Soldier
+    vector<vector<int>> matrix = {{1, 0, 0, 0},
+                                  {1, 1, 1, 1},
+                                  {1, 0, 0, 0},
+                                  {1, 0, 0, 0}};
+    int k = 2;
+    weakestSoldier(matrix, k);
+
+
+    // Sliding Window Maximum
+    vector<int> arr = {1, 3, -1, -3, 5, 3, 6, 7};
+    int k = 3;
+    slidingWindow(arr, k);
+
 
 
     return 0;
