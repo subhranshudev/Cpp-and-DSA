@@ -1,0 +1,280 @@
+#include<iostream>
+#include<vector>
+#include<string>
+#include<unordered_map>
+#include<map>
+#include<unordered_set>
+#include<set>
+using namespace std;
+
+class Node{
+public:
+    string key;
+    int val;
+    Node* next;
+
+    Node(string key, int val){
+        this->key = key;
+        this->val = val;
+        next = NULL;
+    }
+
+    ~Node(){
+        if(next != NULL){
+            delete next;
+        }
+    }
+};
+
+class HashTable{
+    int totalSize;
+    int currSize;
+    Node** table;   // Pointer of Pointer; table is a pointer which will store the reference of an array; and that array will store reference of Nodes
+
+    int hashFunction(string key){
+        int idx = 0;
+
+        for(int i = 0; i< key.size(); i++){
+            idx = idx + (key[i] * key[i])%totalSize;
+        }
+
+        return (idx % totalSize); // it was the reason the error was coming (take modulo by totalSize)
+    }
+
+    void rehash(){
+        Node** oldTbale = table;
+        int oldSize = totalSize;
+
+        totalSize = 2*totalSize;
+        currSize = 0;
+        table = new Node*[totalSize];
+        
+
+        for(int i = 0; i< totalSize; i++){
+            table[i] = NULL;
+        }
+
+        // Copy old value
+        for(int i = 0; i< oldSize; i++){
+            Node* temp = oldTbale[i];
+            while(temp != NULL){
+                insert(temp->key, temp->val);
+                temp = temp->next;
+            }
+
+            if(oldTbale[i] != NULL){
+                delete oldTbale[i];     // It will only delete the head node. So to delete the all remaining nodes write destructor in Node class
+            }
+        }
+
+        delete[] oldTbale;
+    }
+
+public:
+    HashTable(int size=5){
+        totalSize = size;
+        currSize = 0;
+
+        table = new Node*[totalSize];   // Create an array dynamically of datatype Node* and size = totalSize
+
+        for(int i = 0; i< totalSize; i++){
+            table[i] = NULL;
+        }
+    }
+
+    void insert(string key, int val){
+        int idx = hashFunction(key);
+
+        Node* newNode = new Node(key, val);
+        //Node* head = table[idx];
+        newNode->next = table[idx];
+        table[idx] = newNode;
+
+        currSize++;
+
+        double lambda = currSize/(double)totalSize;
+        if(lambda > 1){
+            rehash();
+        }
+    }
+
+    bool exists(string key){
+        int idx = hashFunction(key);
+
+        Node* temp = table[idx];
+        while(temp != NULL){
+            if(temp->key == key){
+                return true;
+            }
+
+            temp = temp->next;
+        }
+
+        return false;
+    }
+    
+    int search(string key){
+        int idx = hashFunction(key);
+
+        Node* temp = table[idx];
+        while(temp != NULL){
+            if(temp->key == key){
+                return temp->val;
+            }
+
+            temp = temp->next;
+        }
+
+        return -1;
+    }
+
+    void remove(string key){
+        int idx = hashFunction(key);
+
+        Node* temp = table[idx];
+        Node* prev = temp;
+        while(temp != NULL){
+            if(temp->key == key){
+                if(temp == prev){   // Remove the head node
+                    table[idx] = temp->next;
+                }else{  // Remove any other node
+                    prev->next = temp->next;
+                }
+                return; 
+            }
+
+            prev = temp;
+            temp = temp->next;
+        }
+    }
+
+    void print(){
+        for(int i = 0; i< totalSize; i++){
+            cout<< "Idx-"<< i<< " -> ";
+            Node* temp = table[i];
+            while(temp != NULL){
+                cout<< "(" << temp->key << "," << temp->val << ") -> " ;
+                temp = temp->next;
+            }
+            cout<< endl;
+        }
+    }
+};
+
+int main(){
+/*    // Hash Table
+    HashTable ht;
+    ht.insert("India", 150);
+    ht.insert("China", 150);
+    ht.insert("US", 50);
+    ht.insert("Nepal", 10);
+    ht.insert("UK", 20);
+
+    if(ht.exists("India")){
+        cout<< "India Population = "<< ht.search("India")<< endl;
+    }
+    ht.print();
+    ht.remove("China");
+    ht.print();
+*/
+
+/*    // Unordered Map
+    unordered_map<string, int> uMap;
+    uMap["China"] = 150;
+    uMap["India"] = 150;
+    uMap["US"] = 50;
+    uMap["Nepal"] = 10;
+
+    cout<< "India = " << uMap["India"]<< endl;
+    
+    for(pair<string, int> country : uMap){
+        cout<< country.first << ","<< country.second << endl;
+    }
+
+    uMap["India"] = 160;
+    cout<< "India = " << uMap["India"]<< endl;
+
+    // if count = 0 => element is not present; if count != 0 => element is present
+    if(uMap.count("Nepal")){
+        cout<< "Nepal exists" << endl;
+    }else{
+        cout<< "Nepal doesn't exist"<< endl;
+    }
+
+    uMap.erase("Nepal");
+
+    if(uMap.count("Nepal")){
+        cout<< "Nepal exists"<< endl;
+    }else{
+        cout<< "Nepal doesn't exist"<< endl;
+    }
+*/
+
+/*    // Map
+    map<string, int> m;
+    m["China"] = 150;
+    m["India"] = 150;
+    m["US"] = 50;
+    m["Nepal"] = 10;
+
+    cout<< "India = " << m["India"]<< endl;
+    
+    for(pair<string, int> country : m){
+        cout<< country.first << ","<< country.second << endl;
+    }
+*/   
+
+/*    // Unordered Sets --> TC = O(1)
+    unordered_set<int> uSet;
+
+    uSet.insert(1);
+    uSet.insert(5);
+    uSet.insert(3);
+    uSet.insert(2);
+
+    cout<< "Size = " << uSet.size()<< endl;
+
+    uSet.insert(5);
+    uSet.insert(3);
+    cout<< "Size = " << uSet.size()<< endl;
+
+    uSet.erase(3);
+    if(uSet.find(3) != uSet.end()){
+        cout<< "3 exists"<< endl;
+    }else{
+        cout<< "3 doesn't exist"<< endl;
+    }
+
+    for(auto el : uSet){
+        cout<< el<< ", ";
+    }
+*/
+
+    // Set --> TC = O(log n)
+    set<int> s;
+
+    s.insert(1);
+    s.insert(5);
+    s.insert(3);
+    s.insert(2);
+
+    cout<< "Size = " << s.size()<< endl;
+
+    s.insert(5);
+    s.insert(3);
+    cout<< "Size = " << s.size()<< endl;
+
+    s.erase(3);
+    if(s.find(3) != s.end()){
+        cout<< "3 exists"<< endl;
+    }else{
+        cout<< "3 doesn't exist"<< endl;
+    }
+
+     for(auto el : s){
+        cout<< el<< ", ";
+    }
+
+
+    return 0;
+}
