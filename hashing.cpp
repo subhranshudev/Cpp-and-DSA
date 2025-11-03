@@ -182,6 +182,32 @@ void majorityElement(vector<int> nums){ // TC = O(n) ; In some cases it can be O
     cout<< endl;
 }
 
+bool validAnagrams(string str1, string str2){    // TC = O(n)
+    if(str1.length() != str2.length()){
+        return false;
+    }
+    
+    unordered_map<char, int> freq;
+
+    for(char ch : str1){
+        if(freq[ch]){
+            freq[ch]++;
+        }else{
+            freq[ch] = 1;
+        }
+    }
+
+    for(char ch : str2){
+        if(freq[ch]){
+            freq[ch]--;
+        }else{
+            return false;
+        }
+    }
+
+    return true;
+}
+
 int main(){
 /*    // Hash Table
     HashTable ht;
@@ -314,12 +340,19 @@ int main(){
     }
 */
 
-    // Majority Element
+/*    // Majority Element
     vector<int> nums = {1, 3, 2, 5, 1, 3, 1, 5, 1};
     vector<int> nums2 = {1, 2};
 
     majorityElement(nums2);
- 
+*/
+
+    // Valid Anagram
+    string str1 = "race";
+    string str2 = "care";
+    cout<< validAnagrams(str1, str2)<< endl;
+
+
 
     return 0;
 }
