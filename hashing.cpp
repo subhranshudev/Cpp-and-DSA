@@ -161,6 +161,27 @@ public:
     }
 };
 
+void majorityElement(vector<int> nums){ // TC = O(n) ; In some cases it can be O(n^2) due to rehashing, But very minimum cases
+    int n = nums.size();
+    unordered_map<int, int> m;
+
+    for(int i = 0; i< n; i++){
+        if(m[nums[i]]){
+            m[nums[i]]++;
+        }else{
+            m[nums[i]] = 1;
+        }
+    }
+
+    for(pair<int, int> p : m){
+        if(p.second > n/3){
+            cout<< p.first << " ";
+        }
+    }
+
+    cout<< endl;
+}
+
 int main(){
 /*    // Hash Table
     HashTable ht;
@@ -276,7 +297,7 @@ int main(){
     }
 */
 
-    // Pair Sum
+/*    // Pair Sum
     int arr[7] = {1, 2, 7, 11, 15, 5, 9};
     int n = 7;
     int target = 9;
@@ -291,8 +312,14 @@ int main(){
 
         m[arr[i]] = i;
     }
+*/
 
+    // Majority Element
+    vector<int> nums = {1, 3, 2, 5, 1, 3, 1, 5, 1};
+    vector<int> nums2 = {1, 2};
 
+    majorityElement(nums2);
+ 
 
     return 0;
 }
