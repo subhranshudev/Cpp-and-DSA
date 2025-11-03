@@ -250,7 +250,7 @@ int main(){
     }
 */
 
-    // Set --> TC = O(log n)
+/*    // Set --> TC = O(log n)
     set<int> s;
 
     s.insert(1);
@@ -274,6 +274,24 @@ int main(){
      for(auto el : s){
         cout<< el<< ", ";
     }
+*/
+
+    // Pair Sum
+    int arr[7] = {1, 2, 7, 11, 15, 5, 9};
+    int n = 7;
+    int target = 9;
+
+    unordered_map<int, int> m;
+    for(int i = 0; i< n; i++){
+        int complement = target - arr[i];
+        if(m.count(complement)){
+            cout<< "ans = {"<< m[complement] << ","<< i << "}" << endl;
+            break;
+        }
+
+        m[arr[i]] = i;
+    }
+
 
 
     return 0;
