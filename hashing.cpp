@@ -299,6 +299,28 @@ int largestSubarraywithSum0(vector<int> arr){
     return ans;
 }
 
+int subarraySumEqualsK(vector<int> arr, int k){
+    unordered_map<int, int> m; // m<sum, count>
+    m[0] = 1;
+    int sum = 0, count = 0;
+
+    for(int j = 0; j< arr.size(); j++){
+        sum += arr[j];
+
+        if(m.count(sum-k)){
+            count += m[sum-k];
+        }
+
+        if(m.count(sum)){
+            m[sum]++;
+        }else{
+            m[sum] = 1;
+        }
+    }
+
+    return count;
+}
+
 int main(){
 /*    // Hash Table
     HashTable ht;
@@ -466,9 +488,16 @@ int main(){
     printItinerary(tickets);
 */
 
-    // Largest subarray with sum 0
+/*    // Largest subarray with sum 0
     vector<int> arr = {15, -2, 2, -8, 1, 7, 10};
     cout<< "Largest subarray length with sum 0 = " << largestSubarraywithSum0(arr);
+*/
+
+    // Subarray Sum equals k
+    vector<int> arr = {1, 2, 3};
+    int k = 3;
+    cout<< "Subarray sum equals k = " << subarraySumEqualsK(arr, k);
+
     
     
 
