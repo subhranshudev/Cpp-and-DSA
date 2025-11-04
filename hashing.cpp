@@ -282,6 +282,23 @@ void printItinerary(unordered_map<string, string> tickets){
     cout<< "Destination \n";
 }
 
+int largestSubarraywithSum0(vector<int> arr){
+    unordered_map<int, int> m;
+    int sum = 0, ans = 0;
+    for(int j = 0; j< arr.size(); j++){
+        sum += arr[j];
+
+        if(m.count(sum)){
+            int currLength = j - m[sum];
+            ans = max(ans, currLength);
+        }else{
+            m[sum] = j;
+        }
+    }
+
+    return ans;
+}
+
 int main(){
 /*    // Hash Table
     HashTable ht;
@@ -439,7 +456,7 @@ int main(){
     printInterSection(arr1, arr2);
 */
 
-    // Itinerary from Tickets
+/*    // Itinerary from Tickets
     unordered_map<string, string> tickets;
     tickets["Chennai"] = "Bengaluru";
     tickets["Mumbai"] = "Delhi";
@@ -447,6 +464,12 @@ int main(){
     tickets["Delhi"] = "Goa";
 
     printItinerary(tickets);
+*/
+
+    // Largest subarray with sum 0
+    vector<int> arr = {15, -2, 2, -8, 1, 7, 10};
+    cout<< "Largest subarray length with sum 0 = " << largestSubarraywithSum0(arr);
+    
     
 
 
