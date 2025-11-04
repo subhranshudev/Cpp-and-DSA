@@ -258,6 +258,30 @@ void printInterSection(vector<int> arr1, vector<int> arr2){
     cout<< endl;
 }
 
+void printItinerary(unordered_map<string, string> tickets){
+    // Starting point
+    unordered_set<string> to;
+
+    for(pair<string, string> ticket : tickets){ // pair<from, to>
+        to.insert(ticket.second);
+    }
+
+    string start = "";
+    for(pair<string, string> ticket : tickets){
+        if(to.find(ticket.first) == to.end()){
+            start = ticket.first;
+        }
+    }
+
+    cout<< start<< " -> ";
+    while(tickets.count(start)){
+        cout<< tickets[start]<< " -> ";
+        start = tickets[start];
+    }
+
+    cout<< "Destination \n";
+}
+
 int main(){
 /*    // Hash Table
     HashTable ht;
@@ -408,12 +432,23 @@ int main(){
     cout << "Distinct Count = "<< countDistinct(arr) << endl;
 */
 
-    // Union of sets
+/*    // Union and Intersection of sets
     vector<int> arr1 = {7, 3, 9};
     vector<int> arr2 = {6, 3, 9, 2, 9, 4};
     printUnion(arr1, arr2);
     printInterSection(arr1, arr2);
- 
+*/
+
+    // Itinerary from Tickets
+    unordered_map<string, string> tickets;
+    tickets["Chennai"] = "Bengaluru";
+    tickets["Mumbai"] = "Delhi";
+    tickets["Goa"] = "Chennai";
+    tickets["Delhi"] = "Goa";
+
+    printItinerary(tickets);
+    
+
 
     return 0;
 }
