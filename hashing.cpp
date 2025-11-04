@@ -208,7 +208,7 @@ bool validAnagrams(string str1, string str2){    // TC = O(n)
     return true;
 }
 
-int distinctCount(vector<int> arr){
+int countDistinct(vector<int> arr){
     unordered_set<int> s;
 
     for(int i = 0; i< arr.size(); i++){
@@ -223,6 +223,40 @@ int distinctCount(vector<int> arr){
     return s.size();
 }
 
+void printUnion(vector<int> arr1, vector<int> arr2){
+    unordered_set<int> s;
+
+    for(int el : arr1){
+        s.insert(el);
+    }
+
+    for(int el : arr2){
+        s.insert(el);
+    }
+
+    cout<< "Union = ";
+    for(int el : s){
+        cout<< el << " ";
+    }
+    cout<< endl;
+}
+
+void printInterSection(vector<int> arr1, vector<int> arr2){
+    unordered_set<int> s;
+
+    for(int el : arr1){
+        s.insert(el);
+    }
+
+    cout<< "Intersection = ";
+    for(int el : arr2){
+        if(s.count(el)){
+            cout<< el<< " ";
+            s.erase(el);
+        }
+    }
+    cout<< endl;
+}
 
 int main(){
 /*    // Hash Table
@@ -369,11 +403,17 @@ int main(){
     cout<< validAnagrams(str1, str2)<< endl;
 */
 
-    // Distinct Count 
+/*    // Count Distinct
     vector<int> arr = {4, 3, 2, 5, 6, 7, 3, 4, 2, 1};
-    cout << "Distinct Count = "<< distinctCount(arr) << endl;
+    cout << "Distinct Count = "<< countDistinct(arr) << endl;
+*/
 
-
+    // Union of sets
+    vector<int> arr1 = {7, 3, 9};
+    vector<int> arr2 = {6, 3, 9, 2, 9, 4};
+    printUnion(arr1, arr2);
+    printInterSection(arr1, arr2);
+ 
 
     return 0;
 }
