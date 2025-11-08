@@ -94,6 +94,26 @@ public:
     int countNode(){
         return countHelper(root);
     }
+
+    void longestHelper(Node* root, string &ans, string temp){
+        for(pair<char, Node*> child : root->children){
+            if(child.second->endOfWord){
+                temp += child.first;
+
+                if((temp.size() == ans.size() && temp < ans) || (temp.size() > ans.size())){
+                    ans = temp;
+                }
+
+                longestHelper(child.second, ans, temp);
+                temp = temp.substr(0, temp.size()-1);   // Remove the last added char
+            }
+        }
+    }
+    string longestStrWithEOW(){ // Longest string with End Of Word
+        string ans = "";
+        longestHelper(root, ans, "");
+        return ans;
+    }
 };
 
 bool helper(Trie &trie, string key){
@@ -153,6 +173,16 @@ int countUniqueSubstrings(string str){
     return trie.countNode();
 }
 
+string longestString(vector<string> dict){
+    Trie trie;
+
+    for(int i = 0; i< dict.size(); i++){
+        trie.insert(dict[i]);
+    }
+
+    return trie.longestStrWithEOW();
+}
+
 int main(){
 /*    // Basics of Trie
     vector<string> words = {"the", "a", "there", "their", "any", "thee"};
@@ -181,9 +211,14 @@ int main(){
     cout<< startsWithProblem(words, prefix);
 */
 
-    // Count Unique Substrings
+/*    // Count Unique Substrings
     string str = "abc";
     cout<< countUniqueSubstrings(str);
+*/
+
+    // Longest word with all prefix
+    vector<string> dict = {"a", "banana", "app", "appl", "ap", "apply", "apple"};
+    cout<< longestString(dict)<< endl;
 
 
     return 0;
