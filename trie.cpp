@@ -8,6 +8,7 @@ class Node{
 public:
     unordered_map<char, Node*> children;
     bool endOfWord;
+    int freq;   // for Prefix Problem
 
     Node(){
         endOfWord = false;
@@ -19,6 +20,7 @@ class Trie{
 public:
     Trie(){
         root = new Node();
+        root->freq = -1;    // for Prefix Problem
     }
 
     void insert(string key){    //TC =  O(L)
@@ -27,6 +29,9 @@ public:
         for(int i = 0; i< key.size(); i++){ // Insert each char of string one by one
             if(temp->children.count(key[i]) == 0){
                 temp->children[key[i]] = new Node();
+                temp->children[key[i]]->freq = 1;   // for Prefix Problem
+            }else{
+                temp->children[key[i]]->freq++; // for Prefix Problem
             }
 
             temp = temp->children[key[i]];
@@ -48,6 +53,35 @@ public:
 
         return temp->endOfWord;
     }
+
+    string getPrefix(string key){
+        Node* temp = root;
+        string prefix = "";
+
+        for(int i = 0; i< key.size(); i++){
+            prefix += key[i];
+            if(temp->children[key[i]]->freq == 1){
+                break;
+            }
+            temp = temp->children[key[i]];
+        }
+        return prefix;
+    }
+
+    bool startsWith(string prefix){ // O(L)
+        Node* temp = root;
+
+        for(int i = 0; i< prefix.size(); i++){
+            if(temp->children.count(prefix[i])){
+                temp = temp->children[prefix[i]];
+            }else{
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 };
 
 bool helper(Trie &trie, string key){
@@ -75,6 +109,27 @@ bool wordBreak(vector<string> dict, string key){
     return helper(trie, key);
 }
 
+void prefixProblem(vector<string> dict){
+    Trie trie;
+    for(int i = 0; i< dict.size(); i++){
+        trie.insert(dict[i]);
+    }
+
+    for(int i = 0; i < dict.size(); i++){
+        cout<< trie.getPrefix(dict[i]) << ", ";
+    }
+    
+}
+
+bool startsWithProblem(vector<string> dict, string prefix){
+    Trie trie;
+    for(int i = 0; i< dict.size(); i++){
+        trie.insert(dict[i]);
+    }
+
+    return trie.startsWith(prefix);
+}
+
 int main(){
 /*    // Basics of Trie
     vector<string> words = {"the", "a", "there", "their", "any", "thee"};
@@ -86,10 +141,20 @@ int main(){
     cout<< trie.search("the")<< endl;
 */
 
-    // Word Break
+/*    // Word Break
     vector<string> dict = {"i", "like", "sam", "samsung", "mobile", "ice"};
     string key = "ilikesamsung";
     cout<< wordBreak(dict, key) << endl;
+*/
+
+/*    //Prefix Problem
+    vector<string> words = {"zebra", "dog", "duck", "dove"};
+    prefixProblem(words);
+*/
+    // startsWith Problem
+    vector<string> words = {"apple", "app", "mango", "man", "woman"};
+    string prefix = "appe";
+    cout<< startsWithProblem(words, prefix);
 
 
     return 0;
