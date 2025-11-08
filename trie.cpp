@@ -82,6 +82,18 @@ public:
         return true;
     }
 
+    int countHelper(Node* root){
+        int count = 0;
+
+        for(pair<char, Node*> child : root->children){
+            count += countHelper(child.second);
+        }
+
+        return count + 1; //+1 for empty string ""
+    }
+    int countNode(){
+        return countHelper(root);
+    }
 };
 
 bool helper(Trie &trie, string key){
@@ -130,6 +142,17 @@ bool startsWithProblem(vector<string> dict, string prefix){
     return trie.startsWith(prefix);
 }
 
+int countUniqueSubstrings(string str){
+    Trie trie;
+    // Find all the suffixes and craete a trie using all those suffixes
+    for(int i = 0; i< str.size(); i++){
+        string suffix = str.substr(i);
+        trie.insert(suffix);
+    }
+
+    return trie.countNode();
+}
+
 int main(){
 /*    // Basics of Trie
     vector<string> words = {"the", "a", "there", "their", "any", "thee"};
@@ -147,14 +170,20 @@ int main(){
     cout<< wordBreak(dict, key) << endl;
 */
 
-/*    //Prefix Problem
+/*    // Prefix Problem
     vector<string> words = {"zebra", "dog", "duck", "dove"};
     prefixProblem(words);
 */
-    // startsWith Problem
+
+/*    // startsWith Problem
     vector<string> words = {"apple", "app", "mango", "man", "woman"};
     string prefix = "appe";
     cout<< startsWithProblem(words, prefix);
+*/
+
+    // Count Unique Substrings
+    string str = "abc";
+    cout<< countUniqueSubstrings(str);
 
 
     return 0;
