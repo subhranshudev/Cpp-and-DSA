@@ -12,7 +12,7 @@ public:
     Graph(int V){
         this->V = V;
         l = new list<int> [V];  // Dynamic array of type lists
-        li = new list<pair<int, int>> [V];  // For undirected-weighted graph
+        //li = new list<pair<int, int>> [V];  // For undirected-weighted graph
     }
 
     void addEdge(int u, int v){ // u---v
@@ -70,6 +70,23 @@ public:
         cout<< endl;
     }
 
+    void DFSHelper(int u, vector<bool> &vis){ // O(v + E)
+        vis[u] = true;
+        cout<< u << " ";
+
+        list<int> neighbours = l[u];
+        for(int v : neighbours){
+            if(!vis[v]){
+                DFSHelper(v, vis);
+            }
+        }
+    }
+    void DFS(){
+        vector<bool> vis(7, false);
+        DFSHelper(0, vis);
+        cout<< endl;
+    }
+
 };
 
 int main(){
@@ -106,7 +123,13 @@ int main(){
     graph.addEdge(4, 5);
     graph.addEdge(5, 6);
 
+    cout<< "BFS: ";
     graph.BFS();
+
+    // Depth First Search (DFS)
+    
+    cout<< "DFS: ";
+    graph.DFS();
 
     return 0;
 }
